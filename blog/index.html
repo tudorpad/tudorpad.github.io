@@ -1,3 +1,6 @@
+Copy everything inside this code block and paste it into the GitHub editor, replacing the existing contents:
+
+```html
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,60 +9,143 @@
     <meta name="description" content="Notes by Tudor Pădurariu.">
     <meta name="color-scheme" content="light dark">
     <title>Blog · Tudor Pădurariu</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5bd3'/%3E%3Cpath d='M16 18h32M32 18v30' stroke='white' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5bd3'/%3E%3Cpath d='M16 18h32M32 18v30' stroke='white' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E"
+    >
+
     <link rel="stylesheet" href="/assets/site.css">
     <script src="/assets/site.js" defer></script>
+
+    <style>
+      .blog-introduction {
+        max-width: 44rem;
+        margin-bottom: 3rem;
+      }
+
+      .blog-introduction p {
+        margin: 0;
+      }
+
+      .blog-introduction p + p {
+        margin-top: 1.25rem;
+      }
+    </style>
   </head>
+
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
+
     <header class="site-header">
       <div class="shell header-inner">
         <a class="wordmark" href="/">Tudor Pădurariu</a>
+
         <nav aria-label="Primary navigation">
-          <a href="/">Home</a><a href="/research/">Research</a><a href="/teaching/">Teaching</a><a href="/advising/">Advising</a><a href="/events/">Events</a><a href="/cv/">CV</a><a class="is-current" href="/blog/" aria-current="page">Blog</a>
+          <a href="/">Home</a>
+          <a href="/research/">Research</a>
+          <a href="/teaching/">Teaching</a>
+          <a href="/advising/">Advising</a>
+          <a href="/events/">Events</a>
+          <a href="/cv/">CV</a>
+          <a class="is-current" href="/blog/" aria-current="page">Blog</a>
         </nav>
-        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme"><span aria-hidden="true">◐</span></button>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-label="Switch color theme"
+          title="Switch color theme"
+        >
+          <span aria-hidden="true">◐</span>
+        </button>
       </div>
     </header>
 
-    <main id="content" class="page-main">
+    <main id="content" class="page-main blog-main">
       <header class="page-header">
         <h1>Blog</h1>
       </header>
-      <div class="empty-state" role="status"><p>
-  I plan to write about research topics related to my interests. The aim is to
-  bridge, at least partially, the gap between the background of an early-career
-  researcher in geometric representation theory and recent developments in the areas that interest me.
-</p>
 
-<p>
-  I started this blog mainly because there are relatively few accessible
-  introductions to some of the topics that appear in my work, for
-  students and other early-career researchers or for mathematicians working in
-  neighboring fields. These topics often involve terms such as “BPS
-  cohomology,” “quasi-BPS categories,” “CoHAs,” or “stable envelopes.” I hope
-  these posts will clarify these terms and that some readers will find them
-  useful.
-</p>
+      <section class="blog-introduction" aria-label="About this blog">
+        <p>
+          I plan to write about research topics related to my interests. The
+          aim is to bridge, at least partially, the gap between the background
+          an early-career researcher in geometric representation theory might
+          reasonably be expected to have and recent developments in the areas
+          that interest me.
+        </p>
 
-<p>
-  I will also write about research projects that interest me but on which I
-  have made only partial progress, as well as open problems that I like. I may
-  also post some of my notes or brief reviews of recent papers that I think
-  should be known beyond my immediate community.
-</p>
+        <p>
+          I started this blog mainly because there are relatively few
+          accessible introductions to some of the topics that appear in papers close to my interest, whether for PhD students and other early-career researchers or
+          for mathematicians working in neighboring fields. These topics often
+          involve terms such as “BPS cohomology,” “quasi-BPS categories,”
+          “CoHAs,” or “stable envelopes.” I hope these posts will clarify these
+          terms and that some readers will find them useful.
+        </p>
 
-<p>
-  I may also offer advice for students and early-career researchers, though I
-  am afraid that I may no longer have anything useful to share. Eventually, I
-  also hope to write about mathematics and AI.
-</p></div>
+        <p>
+          I will also write about research projects that interest me but on
+          which I have made only partial progress, as well as open problems
+          that I like. I may also post some of my notes or brief reviews of
+          recent papers that I think deserve to be more widely known beyond my
+          immediate community.
+        </p>
+
+        <p>
+          I may also offer advice for students and early-career researchers,
+          though I am afraid that I may no longer have anything useful to
+          share. Eventually, I also hope to write about mathematics and AI.
+        </p>
+      </section>
+
+      <ol class="post-list">
+        <li>
+          <article class="post-card">
+            <p class="post-date">
+              <time datetime="2026-09-12">12 September 2026</time>
+            </p>
+
+            <h2>
+              <a href="/blog/talks-by-city/">Talks</a>
+            </h2>
+
+            <p class="post-summary">
+              An informal list of the places where I have given talks.
+            </p>
+
+            <ul class="post-tags" aria-label="Tags">
+              <li>
+                <a href="/blog/tags/miscellaneous/">Miscellaneous</a>
+              </li>
+              <li>
+                <a href="/blog/tags/talks/">Talks</a>
+              </li>
+            </ul>
+          </article>
+        </li>
+      </ol>
     </main>
 
-    <footer class="site-footer"><div class="shell footer-inner"><p>© <span data-current-year>2026</span> Tudor Pădurariu</p></div></footer>
-      
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>
+          © <span data-current-year>2026</span> Tudor Pădurariu
+        </p>
+      </div>
+    </footer>
+
     <!-- Cloudflare Web Analytics -->
-    <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "80c2bf88a0e34834b3a5e547295f2f4b"}'></script>
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token":"80c2bf88a0e34834b3a5e547295f2f4b"}'
+    ></script>
     <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
+```
+
+Then click **Commit changes…** at the top right.
