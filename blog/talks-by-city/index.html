@@ -3,12 +3,133 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="An informal list of the places where Tudor Pădurariu has given talks.">
+    <meta name="description" content="List of places where I have a talk.">
     <meta name="color-scheme" content="light dark">
     <title>Talks · Tudor Pădurariu</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5bd3'/%3E%3Cpath d='M16 18h32M32 18v30' stroke='white' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="/assets/site.css">
     <script src="/assets/site.js" defer></script>
+    <style>
+      .post-section {
+        margin-top: 4.5rem;
+      }
+
+      .post-section + .post-section {
+        margin-top: 4rem;
+      }
+
+      .post-section .table-region {
+        margin-top: 0;
+      }
+
+      .section-intro {
+        max-width: 44rem;
+        margin: 0 0 1.35rem;
+      }
+
+      .post-conclusion {
+        margin-top: 3.5rem !important;
+      }
+
+      .short-course-table {
+        min-width: 44rem;
+      }
+
+      .phd-talk-table {
+        min-width: 38rem;
+      }
+
+      .course-date-column {
+        width: 18%;
+      }
+
+      .course-place-column {
+        width: 21%;
+      }
+
+      .course-event-column {
+        width: 39%;
+      }
+
+      .course-details-column {
+        width: 22%;
+      }
+
+      .phd-date-column {
+        width: 21%;
+      }
+
+      .phd-place-column {
+        width: 34%;
+      }
+
+      .phd-venue-column {
+        width: 45%;
+      }
+
+      .short-course-table th:first-child,
+      .short-course-table td:first-child,
+      .phd-talk-table th:first-child,
+      .phd-talk-table td:first-child {
+        padding-right: 1rem;
+      }
+
+      .short-course-table th:last-child,
+      .short-course-table td:last-child,
+      .phd-talk-table th:last-child,
+      .phd-talk-table td:last-child {
+        text-align: left;
+      }
+
+      .short-course-table tbody th,
+      .phd-talk-table tbody th {
+        color: var(--muted);
+        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-size: 0.78rem;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+
+      .short-course-table tbody td:last-child,
+      .phd-talk-table tbody td:last-child {
+        font-variant-numeric: normal;
+        font-weight: 400;
+      }
+
+      .short-course-table a {
+        color: var(--accent);
+      }
+
+      .course-title,
+      .course-links {
+        display: block;
+        margin-top: 0.28rem;
+        color: var(--muted);
+        font-size: 0.86rem;
+        line-height: 1.45;
+      }
+
+      .course-links a + a::before {
+        margin: 0 0.38rem;
+        color: var(--muted);
+        content: "·";
+        text-decoration: none;
+      }
+
+      @media (max-width: 540px) {
+        .post-section {
+          margin-top: 3.5rem;
+        }
+
+        .post-section + .post-section {
+          margin-top: 3.25rem;
+        }
+
+        .post-conclusion {
+          margin-top: 2.75rem !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#content">Skip to content</a>
@@ -36,13 +157,12 @@
         </header>
 
         <div class="post-body">
-          <p>Here is a list of all the places where I have given a talk as of 12 September 2026. It counts both seminar and conference talks. It felt a little too informal to include in my CV, so I decided to put it here instead.</p>
-          <p>A few notes on the count. When I gave a series of talks, I counted the whole series as one. Some talks were on Zoom, including two jointly hosted talks (by Bonn and the Perimeter Institute, and by UBC and ETH), and I counted them for both institutions. I group Université Paris Cité, Sorbonne/Jussieu and the Institut Henri Poincaré under Paris, and UC Berkeley and SLMath under Berkeley. Job talks are not included.</p>
-          <p>The talk in Gdańsk was contributed. The talk at IAS was 15 minutes, and the talk at the Bonn and Perimeter conference was 25 minutes. I think the list gives a fairly accurate impression of where people working on related problems are located, for anyone who may be curious.</p>
+          <p>Here is some information about my past talks, as of 12 September 2026. First, here is a list that counts both seminar and conference talks.</p>
+          <p>A few notes on the count: when I gave a series of talks, I counted the whole series as one. Some talks were on Zoom, including two jointly hosted talks, one by Bonn and the Perimeter Institute, and one by UBC and ETH, and I counted each for both institutions. I group Université Paris Cité, Sorbonne/Jussieu, and the Institut Henri Poincaré under Paris, and UC Berkeley and SLMath under Berkeley. Job talks are not included.</p>
+          <p>The talk in Gdańsk was a contributed talk. The talk at IAS lasted 15 minutes, and the talk at Bonn–Perimeter lasted 25 minutes.</p>
 
-          <div class="table-region" role="region" aria-labelledby="country-table-caption" tabindex="0">
-            <table class="talk-count-table">
-              <caption id="country-table-caption">Countries and places where I have given talks</caption>
+          <div class="table-region" role="region" aria-label="Talks by country or region" tabindex="0">
+            <table class="talk-count-table" aria-label="Talks by country or region">
               <colgroup>
                 <col class="country-name-column">
                 <col class="places-column">
@@ -78,6 +198,112 @@
               </tbody>
             </table>
           </div>
+
+          <section class="content-section post-section" aria-labelledby="short-courses-heading">
+            <h2 id="short-courses-heading">Short courses</h2>
+            <p class="section-intro">Here is a list of the short courses and series of talks I have given.</p>
+
+            <div class="table-region" role="region" aria-label="Short courses and series of talks" tabindex="0">
+              <table class="talk-count-table short-course-table" aria-label="Short courses and series of talks">
+                <colgroup>
+                  <col class="course-date-column">
+                  <col class="course-place-column">
+                  <col class="course-event-column">
+                  <col class="course-details-column">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Place</th>
+                    <th scope="col">Event or seminar</th>
+                    <th scope="col">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row"><time datetime="2026-06">June 2026</time></th>
+                    <td>KIAS, Samcheok</td>
+                    <td>
+                      <a href="https://symposia.kias.re.kr/SSMV">Summer School on Moduli Spaces, Virtual Invariants, and Shifted Symplectic Structures</a>
+                      <span class="course-title">Hall algebras for quivers with potential</span>
+                      <span class="course-links"><a href="https://symposia.kias.re.kr/SSMV/program">Program</a></span>
+                    </td>
+                    <td>Three hours</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><time datetime="2025-11">November 2025</time></th>
+                    <td>Kansas State University</td>
+                    <td>
+                      <a href="https://www.math.ksu.edu/research/research-centers/m-center/past_seminars/2025.html">M-Seminar</a>
+                      <span class="course-title">BPS cohomology and quasi-BPS categories</span>
+                    </td>
+                    <td>Four hours; on Zoom</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><time datetime="2024-02">February 2024</time></th>
+                    <td>SLMath, Berkeley</td>
+                    <td>
+                      Geometric Representation Theory Seminar
+                      <span class="course-title">Hall algebras for quivers with potential</span>
+                      <span class="course-links"><a href="https://www.slmath.org/workshops/27953/schedules/35030">Part I</a><a href="https://www.slmath.org/workshops/27954/schedules/35031">Part II</a></span>
+                    </td>
+                    <td>Four hours</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><time datetime="2023-11">November 2023</time></th>
+                    <td>HIM, Bonn</td>
+                    <td>
+                      <a href="https://www.mathematics.uni-bonn.de/him/programs/past/tp_2023_09">Algebraic Geometry Special Trimester Seminar</a>
+                      <span class="course-title">Quasi-BPS categories</span>
+                    </td>
+                    <td>Four hours; joint with Yukinobu Toda</td>
+                  </tr>
+                  <tr>
+                    <th scope="row"><time datetime="2023-05">May 2023</time></th>
+                    <td>UC Berkeley</td>
+                    <td>
+                      <a href="https://math.berkeley.edu/~danilenko/S23-StringMath.html">String-Math Seminar</a>
+                      <span class="course-title">Categorical Donaldson–Thomas theory for C<sup>3</sup> and beyond</span>
+                      <span class="course-links"><a href="https://www.youtube.com/watch?v=A7R50geUIJs">Part I</a><a href="https://www.youtube.com/watch?v=qPOKoWcE-zg">Part II</a></span>
+                    </td>
+                    <td>Three hours</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="content-section post-section" aria-labelledby="phd-talks-heading">
+            <h2 id="phd-talks-heading">Talks as a PhD student</h2>
+            <p class="section-intro">Here is a list of the talks I gave as a PhD student, that is, before May 2020. These are also the talks I gave before the covid lockdowns.</p>
+
+            <div class="table-region" role="region" aria-label="Talks given as a PhD student" tabindex="0">
+              <table class="talk-count-table phd-talk-table" aria-label="Talks given as a PhD student">
+                <colgroup>
+                  <col class="phd-date-column">
+                  <col class="phd-place-column">
+                  <col class="phd-venue-column">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">University or place</th>
+                    <th scope="col">Venue</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row"><time datetime="2019-01">January 2019</time></th><td>University of Edinburgh</td><td>Algebra and Geometry Seminar</td></tr>
+                  <tr><th scope="row"><time datetime="2019-09">September 2019</time></th><td>MIT</td><td>Geometric Representation Theory Seminar</td></tr>
+                  <tr><th scope="row"><time datetime="2019-11">November 2019</time></th><td>Columbia University</td><td>Algebraic Geometry Seminar</td></tr>
+                  <tr><th scope="row"><time datetime="2020-02">February 2020</time></th><td>Institut Henri Poincaré</td><td>Representation Theory Seminar</td></tr>
+                  <tr><th scope="row"><time datetime="2020-03">March 2020</time></th><td>University of Toronto</td><td>Geometric Representation Theory Seminar</td></tr>
+                  <tr><th scope="row"><time datetime="2020-03">March 2020</time></th><td>UC Berkeley</td><td>String-Math Seminar</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <p class="post-conclusion">I think all the lists give a fairly accurate impression of where people working on related problems are located, in case anyone is wondering.</p>
         </div>
       </article>
     </main>
@@ -89,3 +315,4 @@
     <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
+
