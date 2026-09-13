@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Moduli space and their cohomologies."
+    >
+    <meta name="color-scheme" content="light dark">
+
+    <title>Moduli spaces are their cohomologies</title>
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5bd3'/%3E%3Cpath d='M16 18h32M32 18v30' stroke='white' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E"
+    >
+
+    <link rel="stylesheet" href="/assets/site.css">
+
+    <style>
+      .blog-post {
+        max-width: 42rem;
+      }
+
+      .post-header {
+        margin-bottom: 3rem;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 1.25rem;
+      }
+
+      .post-header h1 {
+        margin-bottom: 0.7rem;
+        font-size: clamp(2.25rem, 5vw, 3.2rem);
+      }
+
+      .post-meta {
+        margin: 0;
+        color: var(--muted);
+        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-size: 0.78rem;
+        line-height: 1.55;
+      }
+
+      .blog-post p {
+        margin: 0 0 1.15rem;
+      }
+
+      .blog-post h2 {
+        margin: 3.2rem 0 1rem;
+        font-size: 1.35rem;
+        font-weight: 680;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+      }
+
+      .blog-post ul,
+      .blog-post ol {
+        padding-left: 1.25rem;
+      }
+
+      .blog-post .reference-list {
+        margin-top: 0;
+      }
+
+      .bibliography li + li {
+        margin-top: 0.75rem;
+      }
+
+      .blog-post mjx-container[display="true"] {
+        max-width: 100%;
+        margin: 1.5rem 0 !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      .post-back {
+        margin-top: 3.5rem !important;
+        border-top: 1px solid var(--line);
+        padding-top: 1.25rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .post-back a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .post-back a:hover {
+        text-decoration: underline;
+      }
+    </style>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['\\[', '\\]']]
+        }
+      };
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      defer
+    ></script>
+    <script src="/assets/site.js" defer></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="wordmark" href="/">Tudor Pădurariu</a>
+
+        <nav aria-label="Primary navigation">
+          <a href="/">Home</a>
+          <a href="/research/">Research</a>
+          <a href="/teaching/">Teaching</a>
+          <a href="/advising/">Advising</a>
+          <a href="/events/">Events</a>
+          <a href="/cv/">CV</a>
+          <a
+            class="is-current"
+            href="/blog/"
+            aria-current="location"
+          >Blog</a>
+        </nav>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-label="Switch color theme"
+          title="Switch color theme"
+        >
+          <span aria-hidden="true">◐</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="content" class="page-main">
+      <article class="blog-post">
+        <header class="post-header">
+          <h1>Moduli spaces are their cohomologies</h1>
+          <p class="post-meta">
+            <time datetime="2026-09-12">12 September 2026</time>
+          </p>
+        </header>
+
+        <p>
+          Most problems I am interested in are related to moduli spaces and
+          their invariants.
+        </p>
+
+        <h2>Moduli spaces</h2>
+
+        <p>
+          Let me first explain briefly what moduli spaces are. A moduli space
+          is a space that parametrizes a class of objects. In algebraic geometry,
+          some of the first examples one learns about are projective space, the moduli of lines through the origin in a vector space, and the Grassmannian, the moduli of linear subspaces of a fixed dimension in a vector space. Another early example is the moduli of line
+          bundles on a smooth projective complex curve $C$. For example,
+          the degree-zero line bundles form the Jacobian $\operatorname{Pic}^0(C)$.
+          In algebraic topology, classifying spaces play a similar role:
+          homotopy classes of maps $S\to BU(r)$ classify rank-$r$ complex
+          vector bundles on a CW complex $S$. The idea is that families of
+          objects are described by maps to a fixed space.
+        </p>
+
+        <p>
+          Such spaces are interesting for several reasons; see the answers
+          collected by Rahul Pandharipande in
+          <a href="https://people.math.ethz.ch/~rahul/ModuliReflections.pdf"><cite>Reflections on moduli space</cite></a>.
+          As far as I see, there are two main initial reasons to study them: the hope that the moduli
+          space reveals something about the general member of the class
+          parametrized, and the fact that moduli spaces are new spaces, with
+          interesting properties, worth studying in their own right. One also later learns that they are connected to many other areas of mathematics.
+        </p>
+
+        <p>
+          It is truly remarkable that moduli spaces of objects in algebraic
+          geometry can themselves be studied inside algebraic geometry.
+          A priori, there is no reason that objects defined by polynomial
+          equations should themselves fit into parameter spaces defined by
+          polynomial equations. To do this properly, however, one has to enlarge
+          the class of spaces under consideration, first from varieties to
+          schemes, and then to stacks.
+        </p>
+
+        <p>
+          There are two big directions in the study of moduli spaces in
+          algebraic geometry. One is parametrizing varieties. The most famous
+          example is the moduli of curves. This example goes back to Riemann’s
+          1857 paper
+          <a href="https://doi.org/10.1515/crll.1857.54.115"><cite>Theorie der Abel’schen Functionen</cite></a>,
+          where he counted $3g-3$ local parameters for a compact Riemann
+          surface of genus $g\ge2$. The use of the word <em>moduli</em> in
+          this context also goes back to this paper. The second direction is
+          parametrizing objects on a fixed variety. The most famous examples
+          are the moduli of vector bundles on a curve, with line bundles, mentioned above, as a
+          special case. Of course, one can also combine the two directions.
+          In this post, I will mostly
+          discuss the second kind.
+        </p>
+
+        <p>
+          A first large class of examples is that of moduli of coherent sheaves on varieties. Coherent sheaves include vector bundles, and thus we recover the example of vector bundles mentioned above. But they also include ideal sheaves, where we obtain the Hilbert scheme of a variety, or sheaves supported on curves, where we obtain a moduli space of bundles on a moving curve inside our initial variety.
+          One also studies problems originating in topology using constructions from
+          algebraic geometry, for example, moduli of local systems on a real
+          manifold, such as the surface underlying a Riemann surface. Many of
+          these moduli problems have local descriptions in terms of
+          representations of associative algebras constructed from quivers.
+          A quiver is simply a directed graph. These are also objects of independent interest in algebra
+          and Lie theory.
+        </p>
+
+        <h2>Compactifications and stability</h2>
+
+        <p>
+          With moduli spaces, a standard issue is constructing the “right”
+          space. When one first learns the subject, “right” is taken to be
+          “a proper variety”. For the moduli of curves, one has to add certain
+          singular curves, namely stable nodal curves, to obtain
+        </p>
+
+        \[
+          \mathcal M_g\subset\overline{\mathcal M}_g,
+        \]
+
+        <p>
+          where $\overline{\mathcal M}_g$ is a smooth proper Deligne-Mumford stack with a projective coarse moduli space, see
+          <a href="https://doi.org/10.1007/BF02684599"><cite>The irreducibility of the space of curves of given genus</cite></a>.
+        </p>
+
+        <p>
+          For moduli of objects, the collection one starts with may be too
+          large, or the proposed moduli space may fail to be separated.
+          To select a manageable part, one usually imposes a stability condition.
+          For example, if $E$ is a vector bundle on a smooth projective curve,
+          its slope is
+        </p>
+
+        \[
+          \mu(E)=\frac{\deg E}{\operatorname{rk}E}.
+        \]
+
+        <p>
+          The bundle is semistable if $\mu(F)\leq\mu(E)$ for every nonzero
+          proper subbundle $F\subset E$, and stable if the inequality is
+          always strict. So the “moduli space of vector bundles” one may first encounter
+          is actually the moduli space of semistable vector bundles
+          of fixed rank and degree. There are two moduli spaces here: the moduli stack of semistable vector bundles, which is smooth, but a stack, and the associated variety, which may be singular and identifies a semistable bundle with its associated polystable bundle.
+        </p>
+
+        <h2>Correspondences between moduli spaces</h2>
+
+        <p>
+          There are certain natural relations,
+          or better, correspondences, between these moduli spaces. Some are fairly
+          standard. For example, one can look at two vector bundles on a curve
+          related by
+        </p>
+
+        \[
+          0\longrightarrow E\longrightarrow E'
+          \longrightarrow\mathbf C_x\longrightarrow0,
+        \]
+
+        <p>
+          where $\mathbf C_x$ is the length-one skyscraper sheaf at a point
+          $x\in C$. Then $\deg E'=\deg E+1$, and the space of all such
+          modifications maps to the stacks of vector bundles
+          $\operatorname{Bun}_{r,d}(C)$ and $\operatorname{Bun}_{r,d+1}(C)$.
+          These relations simply come from extensions of sheaves on a curve,
+          here a vector bundle and a sheaf supported at a point. More generally,
+          we will encounter such relations coming from abelian categories.
+        </p>
+
+        <p>
+          If one wants to study semistable vector bundles, one may restrict the
+          correspondence to the locus on which both bundles are semistable.
+          Getting ahead of myself, we will see in later posts why it can be
+          useful to keep the full stacks: the correspondences there are often
+          simpler and allow operations that do not preserve the semistable
+          loci. These correspondences are natural, and of course one would like
+          to make sense of them and use them. The machinery of Hall algebras
+          does exactly this: a correspondence parametrizing short exact
+          sequences turns “extensions” into a multiplication, or an action. I think Hall algebras capture most correspondences one may be interested in, but not all.
+        </p>
+
+        <p>
+          There are other types of relations between moduli spaces about which
+          I hope to write later, but which are much more mysterious than the one above. Let me mention two. First, the same underlying
+          topological space may have different descriptions as a moduli space.
+          The classical example is the Narasimhan–Seshadri theorem. On a compact
+          Riemann surface $C$ of genus at least two, stable vector bundles of
+          rank $r$ and degree zero are classified by irreducible unitary
+          representations of the fundamental group
+        </p>
+
+        \[
+          \rho:\pi_1(C)\longrightarrow U(r),
+        \]
+
+        <p>
+          up to conjugacy. Allowing direct sums of stable degree-zero bundles
+          gives all unitary representations. The corresponding moduli spaces
+          are naturally homeomorphic, and they are smooth manifolds when restricted to stable bundles and irreducible representations. So we have a description using holomorphic
+          bundles and another using the fundamental group. See Narasimhan and
+          Seshadri’s <a href="https://doi.org/10.2307/1970710">paper</a>.
+        </p>
+
+        <p>
+          Yet other relations are dualities. One of the best-known examples
+          involves Higgs bundles: vector bundles $E$ equipped with a map
+          $\phi:E\to E\otimes K_C$, where $K_C$ is the cotangent line
+          bundle of the curve. In the mirror-symmetry picture of
+          <a href="https://arxiv.org/abs/math/0205236"> Hausel and Thaddeus</a>,
+          suitable moduli spaces of $\mathrm{SL}_r$ and
+          $\mathrm{PGL}_r$ Higgs bundles are mirror partners. The duality
+          also predicts matching invariants.
+        </p>
+
+        <h2>Linearizations</h2>
+
+        <p>
+          So, how does one study a moduli space? First, what types of questions
+          does one ask about any variety? Some are qualitative, such as: is it smooth,
+          does it have mild singularities, is it rational, is it of general type?
+        </p>
+
+        <p>
+          One may also ask quantitative questions, about numbers associated to
+          a variety. The most obvious is the number of connected components. Yet another, less obvious one, is the Euler characteristic. It says something about the geometry of the space: on a
+          compact smooth manifold without boundary, a nonzero Euler characteristic
+          implies that every vector field has a zero.
+        </p>
+
+        <p>
+          The Euler characteristic is the alternating sum of the
+          Betti numbers. For a complex algebraic variety $X$, these are
+        </p>
+
+        \[
+          b_i(X)=\dim_{\mathbf Q}H^i(X,\mathbf Q),
+          \qquad \chi(X)=\sum_i(-1)^i b_i(X),
+        \]
+
+        <p>
+          where $H^i(X,\mathbf Q)$ is rational singular cohomology. The zeroth
+          Betti number is the number of connected components. Even if one is
+          initially interested in numbers, it is a good idea to study these
+          vector spaces: there are more structures (e.g. filtrations) and operations (e.g. pushforward, i.e. integration) on them, from which one can
+          then deduce numerical consequences. For example, when $X$ is a
+          smooth projective complex variety, the Hodge decomposition implies
+          that every odd Betti number is even. Hard Lefschetz implies that the
+          Betti numbers increase toward the middle when considered separately
+          in even and odd degrees, and Poincaré duality gives the corresponding
+          symmetry between Betti numbers whose degrees sum to the real dimension of the underlying manifold.
+        </p>
+
+        <p>
+          Singular cohomology is possibly the main linearization of a variety.
+          Part of its usefulness is that each $H^i(X,\mathbf Q)$ is
+          a finite-dimensional $\mathbf Q$-vector space for a complex variety of finite type. One also has
+          other “linearizations”, such as integral cohomology, (mixed) Hodge
+          structures, topological $K$-theory, Chow groups, algebraic
+          $K$-theory, and so on. Chow groups and algebraic $K$-groups can
+          be much harder to compute, and can be infinite-dimensional even after
+          tensoring with $\mathbf Q$.
+        </p>
+
+        <p>
+          So, we went from numbers to vector spaces. One may wonder whether
+          there are objects which are to vector spaces as vector spaces are to
+          numbers. These are categories, and then one can go on in a similar way to higher categories. To a space
+          $X$, we may associate categories of constructible sheaves,
+          $D$-modules, or coherent sheaves. Taking a Grothendieck group is
+          one way of passing from a category back to an abelian group.
+        </p>
+
+        <p>
+          This progression appears naturally in topological quantum field theory
+          (TQFT). A $d$-dimensional TQFT assigns a number to a closed
+          $d$-manifold and a vector space, its state space, to a closed
+          $(d-1)$-manifold. In extended versions, categories appear one
+          dimension lower. These assignments are related by gluing. For example,
+          closing up a cylinder takes the trace of the identity on its state
+          space, producing its dimension, or its Euler characteristic in a
+          graded version. See this paper of
+          <a href="https://doi.org/10.1007/BF02698547">Atiyah</a>.
+        </p>
+
+        <p>
+          In some theories, the state spaces and categories can
+          come from moduli spaces. Compactifying a higher-dimensional theory on
+          a curve can, for example, produce a two-dimensional theory involving
+          a moduli space of Higgs bundles. A duality between theories is then
+          expected to relate the whole collection: equivalences of categories,
+          isomorphisms of state spaces, and equalities of numerical invariants.
+        </p>
+
+        <p>
+          All these may be thought of as linearizations of the space. I am using
+          <em>linearization</em> informally here. Sometimes I use <em>gadgets</em>. I am not sure what the best term is.
+          The point is that we replace a nonlinear space by an abelian group,
+          a vector space, or a linear category, while keeping enough of its
+          geometry for maps and correspondences to act on these objects.
+        </p>
+
+        <p>
+          I think these problems, of determining these linearizations, are natural if one is interested in a particular
+          space. But they seem particularly well suited to geometric
+          representation theory. Here one is interested in realizing algebras and representations of algebras using linearizations of spaces. Then one can use the machinery behind these linearizations, which is most powerful in the singular cohomology case, to answer questions in representation theory. But how does one
+          construct these spaces, and then these actions? Well, one needs
+          families of spaces related by correspondences. Moduli problems supply
+          both: the objects give the spaces, and operations such as taking an
+          extension or choosing a subobject give correspondences between them.
+          Pulling back and pushing forward along these correspondences can then
+          produce the desired operators, if the relevant maps allow it.
+        </p>
+
+        <p>
+          These spaces also underlie enumerative invariants. A counting problem
+          becomes a question about the moduli space of the objects being counted.
+          The answer may be the number of connected components, or an Euler characteristic, sometimes weighted, or an
+          intersection number. For example, on a smooth proper moduli space
+          $M$, conditions on the objects can give cohomology classes
+          $\alpha_1,\ldots,\alpha_k$, and one considers
+        </p>
+
+        \[
+          \int_M\alpha_1\cup\cdots\cup\alpha_k,
+        \]
+
+        <p>
+          when the total degree is the top degree. Under suitable transversality
+          assumptions, this counts objects satisfying all the conditions, with
+          multiplicities. In general, these computations will not give the right enumerative invariant, but they are still interesting to study and are actually some of the numerics from field theories.
+        </p>
+
+        <h2>Correspondences, tautological objects, and restriction</h2>
+
+        <p>
+          What are some examples, and how does one study these invariants?
+          Well, there are two structures that keep appearing on moduli spaces.
+          The first, which we already mentioned, is correspondences between
+          them. The second is tautological objects. A universal vector bundle,
+          for example, lives naturally on
+        </p>
+
+        \[
+          C\times\operatorname{Bun}_{r,d}(C),
+        \]
+
+        <p>
+          where $\operatorname{Bun}_{r,d}(C)$ is the moduli stack of vector
+          bundles. The Künneth components of its Chern classes give classes on
+          the moduli stack. Likewise, the universal curve gives the familiar
+          tautological classes on moduli spaces of curves.
+        </p>
+
+        <p>
+          Actually, the only two obvious techniques I know to study the cohomology of a
+          moduli space are these two: correspondences and tautological objects. I only know of other, magical, techniques, such as dualities.
+        </p>
+
+        <p>
+          It may happen that we restrict to semistable objects, which is the case if we want to eventually study an actual variety. The universal
+          or tautological objects live naturally on the stack and are then
+          restricted to the semistable part. This happens, for example, for
+          vector bundles on a curve and for representations of a quiver. So the
+          restriction map is useful to study.
+        </p>
+
+        <p>
+          Let’s discuss one example, that of projective space $\mathbf P^n$,
+          with $n\ge1$. Here and below, quotients such as $X/G$ mean
+          quotient stacks. For the scalar $\mathbf C^*$-action on $\mathbf C^{n+1}$, we have
+        </p>
+
+        \[
+          \mathbf P^n=(\mathbf C^{n+1}\setminus\{0\})/\mathbf C^*
+          \subset\mathfrak X=\mathbf C^{n+1}/\mathbf C^*.
+        \]
+
+        <p>
+          The complement is $B\mathbf C^*$. Since $\mathbf C^{n+1}$
+          contracts equivariantly to the origin, the cohomology upstairs is
+          $H^\bullet(\mathfrak X,\mathbf Q)=\mathbf Q[h]$, with $h$
+          of degree two. Choose the sign so that $h$ restricts to the
+          hyperplane class, which I will also call $h$. Then
+        </p>
+
+        \[
+          \begin{aligned}
+          H^\bullet(\mathbf P^n,\mathbf Q)
+            &=\mathbf Q[h]/(h^{n+1})\\
+            &=\mathbf Q\oplus\mathbf Qh\oplus\cdots\oplus\mathbf Qh^n.
+          \end{aligned}
+        \]
+
+        <p>
+          Restriction is the quotient map, and the displayed basis gives an
+          obvious section: lift each $h^i$ to the same monomial upstairs.
+          Equivalently, we have the splitting
+        </p>
+
+        \[
+          \mathbf Q[h]
+          =(\mathbf Q\oplus\mathbf Qh\oplus\cdots\oplus\mathbf Qh^n)
+          \oplus h^{n+1}\mathbf Q[h].
+        \]
+
+        <p>
+          This is a splitting of graded vector spaces, not of rings: downstairs, one has
+          $h^{n+1}=0$, while upstairs it is nonzero.
+        </p>
+
+        <p>
+          The work of
+          <a href="https://doi.org/10.1098/rsta.1983.0017">Atiyah–Bott</a>
+          and <a href="https://doi.org/10.2307/j.ctv10vm2m8">Kirwan</a>
+          gives a general framework for this picture. Atiyah and Bott studied
+          bundles on a curve by stratifying the space of holomorphic structures
+          according to how unstable they are. In finite-dimensional geometric
+          invariant theory (GIT), the analogous decomposition is the Kempf–Ness
+          stratification. For a smooth projective complex variety $X$ with
+          an action of a reductive group $G$ and a chosen ample
+          $G$-equivariant line bundle, write
+        </p>
+
+        \[
+          X=X^{\mathrm{ss}}\sqcup\bigsqcup_\beta S_\beta,
+        \]
+
+        <p>
+          where $X^{\mathrm{ss}}$ is the semistable locus and the
+          $S_\beta$ are the unstable strata.
+          A theorem of Kirwan says that the long exact
+          sequences obtained by adding the strata break into short exact
+          sequences. Choosing splittings gives
+        </p>
+
+        \[
+          \begin{aligned}
+          H^k(X/G,\mathbf Q)\cong{}
+            &H^k(X^{\mathrm{ss}}/G,\mathbf Q)\\
+            &\oplus\bigoplus_\beta
+            H^{k-2c_\beta}(S_\beta/G,\mathbf Q),
+          \end{aligned}
+        \]
+
+        <p>
+          where $c_\beta$ is the complex codimension of $S_\beta$.
+          Thus restriction to the semistable locus is surjective, which is referred to as Kirwan surjectivity, and the
+          unstable strata account for its kernel. The splitting is generally
+          noncanonical and is only a splitting of graded vector spaces. If
+          semistability equals stability and the stabilizers are finite groups, the
+          rational cohomology of the semistable stack is also the rational
+          cohomology of the coarse GIT quotient.
+        </p>
+
+        <p>
+          One can then ask for a distinguished section of the restriction map.
+          The projective-space example has one because the grading selects
+          representatives. I will talk about this construction later, but let me just mention that, in the symplectic setting, there are such lifts, which go under the name of
+          <a href="https://arxiv.org/abs/2010.13217">nonabelian stable
+          envelopes</a> or <a href="https://arxiv.org/abs/2601.08004">BPS cohomology</a>.
+        </p>
+
+        <h2>K-theory</h2>
+
+        <p>
+          Let’s talk about $K$-theory next, by which I actually mean only the
+          Grothendieck group $K_0$. For a space, it is generated
+          by coherent sheaves on the space with the relation $[E]=[E']+[E'']$ for each
+          short exact sequence $0\to E'\to E\to E''\to 0$.
+          Choose the character $q$ of $\mathbf C^*$ whose associated
+          line bundle restricts to $\mathcal O(1)$ on $\mathbf P^n$.
+          The analogous restriction is
+        </p>
+
+        \[
+          \begin{aligned}
+          K_0(\mathfrak X)&=\mathbf Z[q,q^{-1}]\longrightarrow K_0(\mathbf P^n),\\
+          K_0(\mathbf P^n)&=\mathbf Z[q,q^{-1}]/((1-q)^{n+1}).
+          \end{aligned}
+        \]
+
+        <p>
+          Here there is no cohomological grading to select representatives.
+          Instead, for any integer $w$, restriction identifies
+        </p>
+
+        \[
+          W_w=\mathbf Zq^w\oplus\mathbf Zq^{w+1}
+          \oplus\cdots\oplus\mathbf Zq^{w+n}
+          \xrightarrow{\ \sim\ }K_0(\mathbf P^n).
+        \]
+
+        <p>
+          Equivalently, we have the additive splitting
+        </p>
+
+        \[
+          \mathbf Z[q,q^{-1}]
+          =W_w\oplus(1-q)^{n+1}\mathbf Z[q,q^{-1}].
+        \]
+
+        <p>
+          Thus each interval of $n+1$ consecutive weights gives a lift.
+          There is no preferred interval without an additional choice. These
+          choices are called <em>windows</em> or <em>grade-restriction rules</em>.
+        </p>
+
+        <p>
+          They have natural categorical lifts. Let
+          $D^b\operatorname{Coh}(\mathfrak X)$ denote the bounded derived
+          category of coherent sheaves on $\mathfrak X$, equivalently of
+          $\mathbf C^*$-equivariant coherent sheaves on $\mathbf C^{n+1}$. The full
+          triangulated subcategory generated by
+        </p>
+
+        \[
+          \mathcal O(w),\mathcal O(w+1),\ldots,\mathcal O(w+n)
+        \]
+
+        <p>
+          and closed under direct summands restricts equivalently to
+          $D^b\operatorname{Coh}(\mathbf P^n)$. Taking Grothendieck groups
+          recovers the window $W_w$. For more general smooth GIT quotients,
+          under suitable hypotheses, one imposes weight intervals along the
+          fixed loci associated with the Kempf–Ness strata. These give window
+          subcategories and hence analogous splittings on $K_0$.
+        </p>
+
+        <p>
+          For the development of this picture, see the work of
+          <a href="https://arxiv.org/abs/0803.2045">Herbst–Hori–Page</a>,
+          <a href="https://arxiv.org/abs/1308.2438">Hori–Romo</a>,
+          <a href="https://arxiv.org/abs/0910.5534">Segal</a>,
+          <a href="https://arxiv.org/abs/math/9808029">Teleman</a>,
+          <a href="https://arxiv.org/abs/1203.6643">Ballard–Favero–Katzarkov</a>,
+          and <a href="https://arxiv.org/abs/1203.0276">Halpern-Leistner</a>.
+        </p>
+
+        <p>
+          OK, so we learned that if one wants to study the cohomology of moduli
+          spaces, one may need to look at correspondences between these spaces,
+          tautological generation, and the problem of finding sections of the
+          restriction map from the stack to the semistable locus. For the first one, we will use correspondences coming from Hall algebras. The third leads to BPS cohomology and
+          quasi-BPS categories.
+        </p>
+
+        <p>
+          Lastly, we did not say much about singularities. The usual
+          linearizations still make sense for singular spaces, but may miss
+          information relevant to the moduli problem. For sheaves on a
+          Calabi–Yau threefold, or representations of a quiver with potential,
+          the moduli space is locally described
+          as the critical locus of a function on a smooth space or stack.
+          One therefore studies
+          <em>critical cohomology</em>, built from vanishing cycles, which record
+          how nearby fibers of that function degenerate. BPS cohomology captures
+          basic building blocks of the critical cohomology.
+        </p>
+
+        <p>
+          This is part of cohomological, or refined, Donaldson–Thomas theory, see
+          <a href="https://arxiv.org/abs/1503.07349">Szendrői’s survey</a>
+          and <a href="https://arxiv.org/abs/2601.08004">Davison’s ICM 2026 article</a>.
+          For a small sample of foundational papers, see
+          <a href="https://arxiv.org/abs/1006.2706">Kontsevich–Soibelman</a>
+          and <a href="https://arxiv.org/abs/1211.3259">Brav–Bussi–Dupont–Joyce–Szendrői</a>.
+        </p>
+
+        <section aria-labelledby="references-title">
+          <h2 id="references-title">References</h2>
+
+          <ul class="reference-list bibliography">
+            <li>
+              M. F. Atiyah,
+              <a href="https://doi.org/10.1007/BF02698547"><cite>Topological quantum field theories</cite></a>,
+              <cite>Publ. Math. IHÉS</cite> <strong>68</strong> (1988), 175–186.
+            </li>
+
+            <li>
+              M. F. Atiyah and R. Bott,
+              <a href="https://doi.org/10.1098/rsta.1983.0017"><cite>The Yang–Mills equations over Riemann surfaces</cite></a>,
+              <cite>Phil. Trans. Roy. Soc. Lond. A</cite> <strong>308</strong> (1983), 523–615.
+            </li>
+
+            <li>
+              Matthew Ballard, David Favero, and Ludmil Katzarkov,
+              <a href="https://arxiv.org/abs/1203.6643"><cite>Variation of geometric invariant theory quotients and derived categories</cite></a>,
+              <cite>J. reine angew. Math.</cite> <strong>746</strong> (2019), 235–303.
+            </li>
+
+            <li>
+              Tommaso Maria Botta and Ben Davison,
+              <a href="https://arxiv.org/abs/2312.14008"><cite>Okounkov’s conjecture via BPS Lie algebras</cite></a>,
+              arXiv:2312.14008 (2023).
+            </li>
+
+            <li>
+              Christopher Brav, Vittoria Bussi, Delphine Dupont, Dominic Joyce,
+              and Balázs Szendrői, with an appendix by Jörg Schürmann,
+              <a href="https://arxiv.org/abs/1211.3259"><cite>Symmetries and stabilization for sheaves of vanishing cycles</cite></a>,
+              <cite>J. Singul.</cite> <strong>11</strong> (2015), 85–151.
+            </li>
+
+            <li>
+              Ben Davison,
+              <a href="https://arxiv.org/abs/2601.08004"><cite>BPS cohomology in geometry and representation theory</cite></a>,
+              ICM 2026 proceedings paper, arXiv:2601.08004 (2026).
+            </li>
+
+            <li>
+              Pierre Deligne and David Mumford,
+              <a href="https://doi.org/10.1007/BF02684599"><cite>The irreducibility of the space of curves of given genus</cite></a>,
+              <cite>Publ. Math. IHÉS</cite> <strong>36</strong> (1969), 75–109.
+            </li>
+
+            <li>
+              Daniel Halpern-Leistner,
+              <a href="https://arxiv.org/abs/1203.0276"><cite>The derived category of a GIT quotient</cite></a>,
+              <cite>J. Amer. Math. Soc.</cite> <strong>28</strong> (2015), 871–912.
+            </li>
+
+            <li>
+              Tamás Hausel and Michael Thaddeus,
+              <a href="https://arxiv.org/abs/math/0205236"><cite>Mirror symmetry, Langlands duality, and the Hitchin system</cite></a>,
+              <cite>Invent. Math.</cite> <strong>153</strong> (2003), 197–229.
+            </li>
+
+            <li>
+              Manfred Herbst, Kentaro Hori, and David Page,
+              <a href="https://arxiv.org/abs/0803.2045"><cite>Phases of $N=2$ theories in $1+1$ dimensions with boundary</cite></a>,
+              arXiv:0803.2045 (2008).
+            </li>
+
+            <li>
+              Nigel Hitchin,
+              <a href="https://doi.org/10.1112/plms/s3-55.1.59"><cite>The self-duality equations on a Riemann surface</cite></a>,
+              <cite>Proc. London Math. Soc.</cite> <strong>55</strong> (1987), 59–126.
+            </li>
+
+            <li>
+              Kentaro Hori and Mauricio Romo,
+              <a href="https://arxiv.org/abs/1308.2438"><cite>Exact results in two-dimensional $(2,2)$ supersymmetric gauge theories with boundary</cite></a>,
+              arXiv:1308.2438 (2013).
+            </li>
+
+            <li>
+              Anton Kapustin and Edward Witten,
+              <a href="https://arxiv.org/abs/hep-th/0604151"><cite>Electric-magnetic duality and the geometric Langlands program</cite></a>,
+              arXiv:hep-th/0604151 (2006).
+            </li>
+
+            <li>
+              Frances Kirwan,
+              <a href="https://doi.org/10.2307/j.ctv10vm2m8"><cite>Cohomology of Quotients in Symplectic and Algebraic Geometry</cite></a>,
+              Princeton Mathematical Notes <strong>31</strong> (1984).
+            </li>
+
+            <li>
+              Maxim Kontsevich and Yan Soibelman,
+              <a href="https://arxiv.org/abs/1006.2706"><cite>Cohomological Hall algebra, exponential Hodge structures and motivic Donaldson–Thomas invariants</cite></a>,
+              arXiv:1006.2706 (2010).
+            </li>
+
+            <li>
+              M. S. Narasimhan and C. S. Seshadri,
+              <a href="https://doi.org/10.2307/1970710"><cite>Stable and unitary vector bundles on a compact Riemann surface</cite></a>,
+              <cite>Ann. of Math.</cite> <strong>82</strong> (1965), 540–567.
+            </li>
+
+            <li>
+              Andrei Okounkov,
+              <a href="https://arxiv.org/abs/2010.13217"><cite>Nonabelian stable envelopes, vertex functions with descendents, and integral solutions of $q$-difference equations</cite></a>,
+              arXiv:2010.13217 (2020).
+            </li>
+
+            <li>
+              Tudor Pădurariu and Yukinobu Toda,
+              <a href="https://arxiv.org/abs/2309.08425"><cite>Quasi-BPS categories for symmetric quivers with potential</cite></a>,
+              arXiv:2309.08425 (2023).
+            </li>
+
+            <li>
+              Rahul Pandharipande,
+              <a href="https://arxiv.org/abs/1603.05151"><cite>A calculus for the moduli space of curves</cite></a>,
+              in <cite>Algebraic Geometry: Salt Lake City 2015</cite>,
+              Proc. Sympos. Pure Math. <strong>97.1</strong> (2018), 459–487.
+            </li>
+
+            <li>
+              Rahul Pandharipande,
+              <a href="https://people.math.ethz.ch/~rahul/ModuliReflections.pdf"><cite>Reflections on moduli space</cite></a>,
+              notes for the 2023 Hirzebruch Lecture.
+            </li>
+
+            <li>
+              Bernhard Riemann,
+              <a href="https://doi.org/10.1515/crll.1857.54.115"><cite>Theorie der Abel’schen Functionen</cite></a>,
+              <cite>J. reine angew. Math.</cite> <strong>54</strong> (1857), 115–155.
+            </li>
+
+            <li>
+              Ed Segal,
+              <a href="https://arxiv.org/abs/0910.5534"><cite>Equivalences between GIT quotients of Landau–Ginzburg B-models</cite></a>,
+              <cite>Comm. Math. Phys.</cite> <strong>304</strong> (2011), 411–432.
+            </li>
+
+            <li>
+              Carlos Simpson,
+              <a href="https://doi.org/10.1007/BF02699491"><cite>Higgs bundles and local systems</cite></a>,
+              <cite>Publ. Math. IHÉS</cite> <strong>75</strong> (1992), 5–95.
+            </li>
+
+            <li>
+              Balázs Szendrői,
+              <a href="https://arxiv.org/abs/1503.07349"><cite>Cohomological Donaldson–Thomas theory</cite></a>,
+              in <cite>String-Math 2014</cite>, Proc. Sympos. Pure Math.
+              <strong>93</strong> (2016), 363–396.
+            </li>
+
+            <li>
+              Constantin Teleman,
+              <a href="https://arxiv.org/abs/math/9808029"><cite>The quantization conjecture revisited</cite></a>,
+              <cite>Ann. of Math.</cite> <strong>152</strong> (2000), 1–43.
+            </li>
+          </ul>
+        </section>
+
+        <p class="post-back">
+          <a href="/blog/">← Back to the blog</a>
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>
+          © <span data-current-year>2026</span> Tudor Pădurariu
+        </p>
+      </div>
+    </footer>
+
+    <!-- Cloudflare Web Analytics -->
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "80c2bf88a0e34834b3a5e547295f2f4b"}'
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
+  </body>
+</html>
