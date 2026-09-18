@@ -1,0 +1,1557 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="An introduction to cohomological Hall algebras, quivers with potential, and torsion sheaves."
+    >
+    <meta name="color-scheme" content="light dark">
+
+    <title>Cohomological Hall algebras</title>
+
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f5bd3'/%3E%3Cpath d='M16 18h32M32 18v30' stroke='white' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E"
+    >
+
+    <style>
+
+:root {
+  --bg: #f7f8fb;
+  --surface: #ffffff;
+  --ink: #11141a;
+  --muted: #626977;
+  --line: #dce1e9;
+  --accent: #2f5bd3;
+  --accent-soft: #e9efff;
+  --header-bg: rgba(247, 248, 251, 0.88);
+  --shadow: 0 18px 60px rgba(30, 42, 70, 0.1);
+  font-family: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: #101217;
+  --surface: #171a21;
+  --ink: #f1f3f8;
+  --muted: #a4abb9;
+  --line: #2b303b;
+  --accent: #88a8ff;
+  --accent-soft: #1d2a4e;
+  --header-bg: rgba(16, 18, 23, 0.88);
+  --shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+  flex-direction: column;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, var(--accent), transparent 55%);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+.shell {
+  width: min(100% - 2.5rem, 62rem);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 0.75rem;
+  left: 0.75rem;
+  translate: 0 -200%;
+  border-radius: 0.35rem;
+  padding: 0.65rem 0.85rem;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.skip-link:focus {
+  translate: 0;
+}
+
+.site-header {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  background: var(--header-bg);
+  backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  min-height: 4.5rem;
+  gap: 2rem;
+}
+
+.wordmark {
+  color: var(--ink);
+  font-size: 0.86rem;
+  font-weight: 750;
+  letter-spacing: 0.055em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.site-header nav {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(0.9rem, 2.5vw, 1.8rem);
+}
+
+.site-header nav a {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 580;
+  text-decoration: none;
+}
+
+.site-header nav a:hover,
+.site-header nav a.is-current {
+  color: var(--ink);
+}
+
+.theme-toggle {
+  display: grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.theme-toggle:hover {
+  color: var(--ink);
+}
+
+.home-main {
+  display: grid;
+  align-items: center;
+  padding-block: clamp(4rem, 10vw, 7rem) clamp(5rem, 10vw, 8rem);
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 14.5rem;
+  align-items: start;
+  gap: clamp(3rem, 8vw, 6rem);
+}
+
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: break-word;
+}
+
+h1 {
+  margin: 0 0 1.15rem;
+  font-size: clamp(2.1rem, 4.5vw, 2.4rem);
+  font-weight: 690;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.position-line {
+  max-width: 42rem;
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.006em;
+  line-height: 1.72;
+}
+
+.research-kicker {
+  margin: 2.35rem 0 0.55rem;
+  color: var(--ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.research-summary {
+  max-width: 42rem;
+  margin-top: 2.5rem;
+}
+
+.research-summary > h2 {
+  margin: 0 0 0.8rem;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.012em;
+  line-height: 1.35;
+}
+
+.research-statement,
+.keywords-sentence {
+  font-family: "Avenir Next", Avenir, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.research-statement {
+  max-width: 39rem;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.08rem, 0.98rem + 0.35vw, 1.2rem);
+  letter-spacing: -0.009em;
+  line-height: 1.63;
+}
+
+.keywords-sentence {
+  max-width: 39rem;
+  margin: 1.1rem 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.keywords-sentence strong {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.portrait-frame {
+  width: 100%;
+  margin: 0.25rem 0 0;
+}
+
+.portrait-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.2rem;
+  filter: saturate(0.9) contrast(1.02);
+}
+
+.contact-block address {
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-style: normal;
+  line-height: 1.65;
+}
+
+.contact-block address a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.page-main {
+  width: min(100% - 2.5rem, 54rem);
+  margin-inline: auto;
+  padding-block: clamp(4rem, 9vw, 6.5rem) 7rem;
+}
+
+.page-header {
+  max-width: 42rem;
+  margin-bottom: 4rem;
+}
+
+.page-header h1 {
+  margin-bottom: 0.8rem;
+  font-size: clamp(2.25rem, 5vw, 3.2rem);
+}
+
+.page-intro {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+}
+
+.teaching-main .page-header {
+  margin-bottom: 1.35rem;
+}
+
+.section-tabs {
+  display: flex;
+  gap: 1.75rem;
+  margin: 0 0 2.3rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-tabs a {
+  position: relative;
+  padding: 0.7rem 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 620;
+  text-decoration: none;
+}
+
+.section-tabs a:hover,
+.section-tabs a.is-current {
+  color: var(--ink);
+}
+
+.section-tabs a.is-current::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  content: "";
+}
+
+.section-tabs a:focus-visible {
+  border-radius: 0.18rem;
+  outline: 2px solid var(--accent);
+  outline-offset: 0.25rem;
+}
+
+.content-section + .content-section {
+  margin-top: 4.75rem;
+}
+
+.content-section > h2 {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin: 0 0 0.9rem;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.65rem;
+  font-size: 1.25rem;
+  font-weight: 680;
+  letter-spacing: -0.02em;
+}
+
+.research-list,
+.course-list,
+.advising-list,
+.event-list,
+.cv-list,
+.post-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.research-list > li,
+.course-list > li,
+.advising-list > li,
+.event-list > li,
+.cv-list > li,
+.post-list > li {
+  border-bottom: 1px solid var(--line);
+}
+
+.paper {
+  padding: 1.25rem 0 1.35rem;
+}
+
+.paper h3 {
+  margin: 0;
+  font-size: 1.03rem;
+  font-weight: 650;
+  line-height: 1.48;
+}
+
+.paper h3 a {
+  text-decoration: none;
+}
+
+.paper .authors,
+.paper .status,
+.paper .note {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.91rem;
+}
+
+.paper .status {
+  color: var(--ink);
+}
+
+.paper-links,
+.resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.55rem;
+}
+
+.paper-links a,
+.resource-links a {
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.paper-links a:hover,
+.resource-links a:hover {
+  text-decoration: underline;
+}
+
+.course,
+.advising-entry,
+.event,
+.cv-entry {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1.75rem;
+  padding: 1.4rem 0 1.55rem;
+}
+
+.term,
+.event-date,
+.cv-date {
+  margin: 0;
+  color: var(--muted);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.course h3,
+.event h3,
+.cv-entry h3 {
+  margin: 0;
+  font-size: 1.03rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.advising-entry h4 {
+  margin: 0;
+  font-size: 1.03rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.course h3 a,
+.event h3 a {
+  text-decoration: none;
+}
+
+.course p,
+.advising-entry p,
+.event p,
+.cv-entry p {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.advising-entry .advising-place {
+  color: var(--ink);
+}
+
+.advising-entry .advising-topic {
+  font-style: italic;
+}
+
+.course .reference-intro {
+  margin-top: 1rem;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.reference-list {
+  margin: 0.55rem 0 0;
+  padding-left: 1.15rem;
+  color: var(--muted);
+  font-size: 0.93rem;
+  line-height: 1.55;
+}
+
+.reference-list li + li {
+  margin-top: 0.45rem;
+}
+
+.reference-list a {
+  color: var(--accent);
+}
+
+.course .course-place,
+.event .event-place,
+.cv-entry .institution {
+  color: var(--ink);
+}
+
+.contact-note {
+  border-left: 2px solid var(--accent);
+  margin: 1rem 0 0;
+  padding-left: 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.empty-state {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+  padding-block: 1.5rem;
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.blog-main .page-header {
+  margin-bottom: 2.25rem;
+}
+
+.blog-introduction {
+  max-width: 44rem;
+  margin-bottom: 3rem;
+}
+
+.blog-introduction p {
+  margin: 0;
+}
+
+.blog-introduction p + p {
+  margin-top: 1.25rem;
+}
+
+.tag-main .page-header {
+  margin-top: 1.25rem;
+}
+
+.post-list {
+  border-top: 1px solid var(--ink);
+}
+
+.post-card {
+  padding: 1.5rem 0 1.8rem;
+}
+
+.post-card h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 1.5rem);
+  font-weight: 680;
+  letter-spacing: -0.025em;
+  line-height: 1.3;
+}
+
+.post-card h2 a {
+  text-decoration: none;
+}
+
+.post-date {
+  margin: 0 0 0.35rem;
+  color: var(--muted);
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.post-summary {
+  max-width: 40rem;
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.85rem;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  list-style: none;
+}
+
+.post-tags li::before {
+  margin-right: 0.08em;
+  color: var(--accent);
+  content: "#";
+}
+
+.post-tags a {
+  text-decoration: none;
+}
+
+.back-link {
+  margin: 0 0 1.35rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.back-link a {
+  text-decoration: none;
+}
+
+.blog-article-header {
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.4rem;
+}
+
+.blog-article-header h1 {
+  margin: 0;
+}
+
+.post-body {
+  max-width: 48rem;
+}
+
+.post-body > p {
+  max-width: 44rem;
+  margin: 0 0 1rem;
+}
+
+.table-region {
+  max-width: 100%;
+  margin-top: 1.8rem;
+  overflow-x: auto;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+  scrollbar-width: thin;
+}
+
+.table-region:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0.25rem;
+}
+
+.talk-count-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
+.country-name-column {
+  width: 24%;
+}
+
+.places-column {
+  width: 62%;
+}
+
+.count-column {
+  width: 14%;
+}
+
+.talk-count-table caption {
+  padding: 0.8rem 0 0.65rem;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-align: left;
+}
+
+.talk-count-table th,
+.talk-count-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: break-word;
+}
+
+.talk-count-table thead th {
+  color: var(--muted);
+  font-size: 0.77rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.talk-count-table tbody th {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.talk-count-table th:first-child,
+.talk-count-table td:first-child {
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+.talk-count-table th:last-child,
+.talk-count-table td:last-child {
+  padding-right: 0;
+  text-align: right;
+}
+
+.talk-count-table tbody td:last-child {
+  font-variant-numeric: tabular-nums;
+  font-weight: 650;
+}
+
+.talk-count-table tbody tr:last-child th,
+.talk-count-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.not-found {
+  display: grid;
+  min-height: 65vh;
+  place-content: center;
+  text-align: center;
+}
+
+.not-found p {
+  margin: 0 0 1.5rem;
+  color: var(--muted);
+}
+
+.site-footer {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  padding-block: 1.5rem;
+}
+
+.footer-inner p {
+  margin: 0;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 700px) {
+  .shell,
+  .page-main {
+    width: min(100% - 1.5rem, 62rem);
+  }
+
+  .header-inner {
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+
+  .site-header nav {
+    order: 3;
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+    gap: 0.85rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .site-header nav a {
+    font-size: 0.875rem;
+    padding-block: 0.25rem 0.75rem;
+    white-space: nowrap;
+  }
+
+  .theme-toggle {
+    justify-self: end;
+  }
+
+  .home-main {
+    padding-top: 3.5rem;
+  }
+
+  .intro {
+    grid-template-columns: minmax(0, 1fr) 9rem;
+    gap: 2rem;
+  }
+
+  .portrait-frame {
+    margin-top: 0;
+  }
+
+  .course,
+  .advising-entry,
+  .event,
+  .cv-entry {
+    grid-template-columns: 7rem 1fr;
+    gap: 1.1rem;
+  }
+
+  .footer-inner {
+    display: grid;
+    gap: 0.35rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .intro {
+    grid-template-columns: 1fr;
+  }
+
+  .portrait-frame {
+    order: -1;
+    width: 8rem;
+  }
+
+  .page-header {
+    margin-bottom: 3rem;
+  }
+
+  .course,
+  .advising-entry,
+  .event,
+  .cv-entry {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .blog-main .page-header {
+    margin-bottom: 2rem;
+  }
+
+  .post-card {
+    padding-block: 1.25rem 1.5rem;
+  }
+
+  .talk-count-table th,
+  .talk-count-table td {
+    padding: 0.6rem 0.4rem;
+  }
+
+  .talk-count-table th:first-child,
+  .talk-count-table td:first-child {
+    padding-right: 1rem;
+  }
+
+  .talk-count-table thead th {
+    font-size: 0.75rem;
+  }
+
+  .talk-count-table td,
+  .talk-count-table tbody th {
+    font-size: 0.9rem;
+  }
+
+  .country-name-column {
+    width: 28%;
+  }
+
+  .places-column {
+    width: 56%;
+  }
+
+  .count-column {
+    width: 16%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+    </style>
+
+    <style>
+      .blog-post {
+        max-width: 42rem;
+      }
+
+      .post-header {
+        margin-bottom: 3rem;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 1.25rem;
+      }
+
+      .post-header h1 {
+        margin-bottom: 0.7rem;
+        font-size: clamp(2.25rem, 5vw, 3.2rem);
+      }
+
+      .post-meta {
+        margin: 0;
+        color: var(--muted);
+        font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+        font-size: 0.78rem;
+        line-height: 1.55;
+      }
+
+      .blog-post p {
+        margin: 0 0 1.15rem;
+      }
+
+      .blog-post h2 {
+        margin: 3.2rem 0 1rem;
+        font-size: 1.35rem;
+        font-weight: 680;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+      }
+
+      .blog-post ul,
+      .blog-post ol {
+        padding-left: 1.25rem;
+      }
+
+      .blog-post .reference-list {
+        margin-top: 0;
+      }
+
+      .bibliography li + li {
+        margin-top: 0.75rem;
+      }
+
+      .blog-post mjx-container[display="true"] {
+        max-width: 100%;
+        margin: 1.5rem 0 !important;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      .post-back {
+        margin-top: 3.5rem !important;
+        border-top: 1px solid var(--line);
+        padding-top: 1.25rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .post-back a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .post-back a:hover {
+        text-decoration: underline;
+      }
+    </style>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$']],
+          displayMath: [['\\[', '\\]']]
+        }
+      };
+    </script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      defer
+    ></script>
+    <script src="https://tudorpad.github.io/assets/site.js" defer></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="wordmark" href="https://tudorpad.github.io/">Tudor Pădurariu</a>
+
+        <nav aria-label="Primary navigation">
+          <a href="https://tudorpad.github.io/">Home</a>
+          <a href="https://tudorpad.github.io/research/">Research</a>
+          <a href="https://tudorpad.github.io/teaching/">Teaching</a>
+          <a href="https://tudorpad.github.io/advising/">Advising</a>
+          <a href="https://tudorpad.github.io/events/">Events</a>
+          <a href="https://tudorpad.github.io/cv/">CV</a>
+          <a
+            class="is-current"
+            href="https://tudorpad.github.io/blog/"
+            aria-current="location"
+          >Blog</a>
+        </nav>
+
+        <button
+          class="theme-toggle"
+          type="button"
+          aria-label="Switch color theme"
+          title="Switch color theme"
+        >
+          <span aria-hidden="true">◐</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="content" class="page-main">
+      <article class="blog-post">
+        <header class="post-header">
+          <h1>Cohomological Hall algebras</h1>
+          <p class="post-meta">
+            <time datetime="2026-09-16">16 September 2026</time>
+          </p>
+        </header>
+
+<p>I will continue the discussion from the <a href="https://tudorpad.github.io/blog/moduli-spaces-are-their-cohomologies/">previous post</a>. There, the focus was on moduli spaces and their cohomologies. One important piece was correspondences relating the different moduli spaces of objects in an abelian category, and we said that many of these correspondences are captured by Hall algebras.</p>
+<p>Here I want to explain this construction, mostly for representations of quivers. These are examples where both the moduli stacks and the operations on their cohomology can be written down explicitly. They also include some familiar moduli problems, such as torsion sheaves on the affine line. By adding a potential, we will obtain more examples, including zero-dimensional sheaves on the affine plane and on affine three-space.</p>
+<p>All spaces will be over $\mathbf C$, except when we briefly mention Hall algebras over finite fields, and cohomology will have rational coefficients. I will usually omit the dimension shifts and Tate twists. They are important for the precise statements, but I would first like to explain the constructions and some computations.</p>
+<h2>Hall algebras</h2>
+<p>Let us briefly explain the heuristic. Let $\mathcal A$ be an abelian category and let $\mathcal M_{\mathcal A}$ be its moduli stack of objects, assuming such a stack exists. Its points correspond to isomorphism classes of objects in $\mathcal A$, and each point comes with a group, namely the automorphisms of that object. For example, if $\mathcal A$ is the category of finite-dimensional vector spaces, then</p>
+
+\[
+\mathcal M_{\mathrm{Vect}}
+=\coprod_{d\geq 0} B\mathrm{GL}_d.
+\]
+
+<p>So there is one component for each dimension $d$, which is a point with automorphism group $\mathrm{GL}_d$.</p>
+<p>Let $\mathcal E_{\mathcal A}$ be the stack of extensions, or equivalently of pairs of objects $(B\subset E)$ in $\mathcal A$. Such a pair gives a short exact sequence</p>
+
+\[
+0\longrightarrow B\longrightarrow E\longrightarrow A\longrightarrow 0.
+\]
+
+<p>There are natural maps</p>
+
+\[
+\mathcal M_{\mathcal A}\times\mathcal M_{\mathcal A}
+\xleftarrow{\ q\ }\mathcal E_{\mathcal A}
+\xrightarrow{\ p\ }\mathcal M_{\mathcal A},
+\qquad q(E,B)=(E/B,B),\quad p(E,B)=E.
+\]
+
+<p>The map $q$ remembers the quotient and the subobject, in that order, while $p$ remembers the middle term.</p>
+<p>Next, choose a linearization $H(\mathcal M_{\mathcal A})$. One can first pretend that this is some sort of cohomology. This will be the underlying vector space of the Hall algebra. We would like to define a multiplication by</p>
+
+\[
+\alpha\star\beta=p_*q^*(\alpha\boxtimes\beta).
+\]
+
+<p>It is graded by additive invariants of the objects: dimension vectors for quivers, ranks and degrees for sheaves on a curve, or lengths for torsion sheaves. The multiplication adds these invariants, since the class of an extension is the sum of the classes of its two pieces.</p>
+<p>Associativity comes from considering filtrations with three successive quotients. The two ways of multiplying three classes correspond to the two ways of grouping the quotients of the same filtration. Once the pullback and pushforward operations satisfy the appropriate base-change identities, the products agree.</p>
+<p>This is actually the main difficulty in the construction: choosing a linearization for which these operations exist for the maps $p$ and $q$. We would like to include many interesting abelian categories, but also to use linearizations that we can compute. At the end of the day, following Ringel and many other people, we would like to identify the resulting algebras with objects in Lie theory, or with generalizations of those objects.</p>
+<p>For example, if $q$ is smooth and $p$ is proper, we have the required pullback and pushforward in Borel–Moore homology. On smooth stacks, duality lets us write the construction in singular cohomology, with degree shifts. These are the properties we will check in our first examples.</p>
+<p>The original construction of Ringel uses as a linearization the vector space spanned by isomorphism classes of representations over a fixed finite field. The coefficient of $[E]$ in $[A]\star[B]$ counts subobjects of $E$ isomorphic to $B$ with quotient isomorphic to $A$. After a certain twist (involving the Euler form), the subalgebra generated by the vertex simples of a quiver with no cycles gives the positive half of the corresponding quantum group. In Dynkin type, it is the entire Hall algebra. I prefer not to spend much time on this construction, since it is covered by the excellent <a href="https://arxiv.org/abs/math/0611617">notes of Schiffmann</a>. I hope to come back in later posts to this construction and explain it is included in the study of K-theoretic Hall algebras.</p>
+<h2>Sheaves on a curve</h2>
+<p>Let us first return to the example from the previous post. Take a smooth projective curve $C$ and the abelian category $\operatorname{Coh}(C)$ of coherent sheaves on $C$. The maps $p$ and $q$ have the properties we want, once we fix the ranks and degrees of the subobject and quotient.</p>
+<p>For fixed $A$ and $B$, the fiber of $q$ is the stack</p>
+
+\[
+\operatorname{Ext}^1(A,B)/\operatorname{Hom}(A,B).
+\]
+
+<p>Here the additive group $\operatorname{Hom}(A,B)$ records automorphisms of an extension that act trivially on its ends. In families, these fibers form a vector bundle stack, so $q$ is smooth. For $p$, the fiber over $E$ is a Quot scheme with a fixed Hilbert polynomial, so $p$ is proper. See <a href="https://content.algebraicgeometry.nl/2020-3/2020-3-010.pdf">Sala–Schiffmann, Section 3.2</a>.</p>
+<p>The same deformation theory explains the smoothness of the stack of coherent sheaves: infinitesimal automorphisms are $\operatorname{Ext}^0(F,F)$, deformation directions are $\operatorname{Ext}^1(F,F)$, and the obstruction space $\operatorname{Ext}^2(F,F)$ vanishes on a smooth curve.</p>
+<p>There are still some difficulties. Even at fixed rank and degree, the full stack need not be of finite type. For example, on $\mathbf P^1$ we have all the bundles $\mathcal O(n)\oplus\mathcal O(-n)$, of rank two and degree zero, with arbitrarily large instability. One therefore works with finite-type open substacks and suitable limits. Restricting to bundles or imposing stability also changes the correspondence.</p>
+<p>A smaller example is the abelian category $\operatorname{Coh}_0(C)$ of torsion coherent sheaves on $C$. These are sheaves supported at finitely many points. Write $\mathcal M_C(d)$ for their moduli stack in length $d$. The corresponding cohomological Hall algebra is</p>
+
+\[
+\mathcal H_C^{\mathrm{tors}}
+=\bigoplus_{d\geq0}H^\bullet(\mathcal M_C(d)).
+\]
+
+<p>Its multiplication comes from short exact sequences of torsion sheaves, with the same smooth $q$ and proper $p$ as above. Each stack $\mathcal M_C(d)$ is of finite type. In length one, a sheaf is a skyscraper sheaf at a point of $C$, with automorphism group $\mathbf C^*$, so</p>
+
+\[
+\mathcal M_C(1)\cong C\times B\mathbf C^*,
+\qquad
+H^\bullet(\mathcal M_C(1))
+\cong H^\bullet(C)\otimes\mathbf Q[u].
+\]
+
+<p>Here $u$ is the first Chern class of the universal line bundle on $B\mathbf C^*$, of degree two.</p>
+<p>The same construction works for a smooth nonprojective curve when we consider torsion sheaves of finite length. We will compute it for $C=\mathbf A^1$ below, using the Jordan quiver. For the torsion CoHA of a general smooth projective curve, including a shuffle description, see <a href="https://arxiv.org/abs/2609.08323">Jindal–Lim</a>.</p>
+<p>For the rest of this post, let us concentrate on quivers. These also give local models for moduli spaces of sheaves on varieties. For example, see <a href="https://arxiv.org/abs/1505.00759">Arbarello–Saccà</a> for certain moduli on K3 surfaces, and <a href="https://arxiv.org/abs/1710.01841">Toda</a> for descriptions by Ext-quivers with convergent relations near polystable sheaves.</p>
+<h2>Quivers</h2>
+<p>A quiver $Q=(I,Q_1)$ is a directed graph, with vertices $I$ and arrows $Q_1$. We will assume these sets are finite. A representation consists of a vector space $V_i$ at each vertex and a linear map</p>
+
+\[
+A_a:V_i\longrightarrow V_j
+\]
+
+<p>for each arrow $a:i\to j$.</p>
+<p>Alternatively, we can describe representations of a quiver as modules over an associative algebra, called the path algebra. The algebra $\mathbf C Q$ has a basis consisting of oriented paths, including a length-zero path $e_i$ at every vertex. Multiplication is composition of paths when possible, and zero otherwise. The idempotents $e_i$ decompose a module as $V=\bigoplus_i e_iV$, and the arrows act by the linear maps above.</p>
+<p>For example, the Jordan quiver has one vertex and one loop $x$. Its paths are $1,x,x^2,\ldots$, so its path algebra is</p>
+
+\[
+\mathbf C Q=\mathbf C[x].
+\]
+
+<p>A finite-dimensional representation is a vector space with an endomorphism, namely the action of $x$. It is also a finite-dimensional $\mathbf C[x]$-module, or equivalently a torsion coherent sheaf on $\mathbf A^1$. Thus the category of representations of the Jordan quiver is the category $\operatorname{Coh}_0(\mathbf A^1)$ discussed above.</p>
+<p>The eigenvalues of the endomorphism record the support of the sheaf. A Jordan block of size $m$ with eigenvalue $\lambda$ corresponds to</p>
+
+\[
+\mathbf C[x]/(x-\lambda)^m,
+\]
+
+<p>a length-$m$ sheaf supported at $\lambda$.</p>
+<p>We can also see the extensions directly. Two skyscraper sheaves at distinct points have only split extensions. At the same point $\lambda$, however, there is a nonsplit extension</p>
+
+\[
+0\longrightarrow\mathbf C_\lambda
+\longrightarrow\mathbf C[x]/(x-\lambda)^2
+\longrightarrow\mathbf C_\lambda
+\longrightarrow0,
+\]
+
+<p>where $\mathbf C_\lambda=\mathbf C[x]/(x-\lambda)$. The middle term corresponds to a Jordan block of size two, while the split extension corresponds to the scalar matrix $\lambda I_2$. The Hall correspondence includes both possibilities.</p>
+<p>Let us also consider the first two Dynkin quivers. The $A_1$ quiver has one vertex and no arrows, so its path algebra is $\mathbf C$ and its representations are vector spaces. There is one indecomposable, namely the one-dimensional vector space, and every short exact sequence splits.</p>
+<p>For the $A_2$ quiver:</p>
+
+\[
+1\xrightarrow{a}2,
+\]
+
+<p>a representation is a linear map $A:V_1\to V_2$. Splitting $V_1$ into its kernel and a complement, and $V_2$ into its image and a complement, writes every such representation as a direct sum of</p>
+
+\[
+S_1=(\mathbf C\to0),\qquad
+S_2=(0\to\mathbf C),\qquad
+P_1=(\mathbf C\xrightarrow{1}\mathbf C).
+\]
+
+<p>The last representation is the only additional indecomposable. It appears in the nonsplit extension</p>
+
+\[
+0\longrightarrow S_2\longrightarrow P_1\longrightarrow S_1\longrightarrow0.
+\]
+
+<p>This is the possibly the simplest example in which the Hall product remembers a nontrivial extension between different vertex simples.</p>
+<p>For other quivers, the classification problem leads to Lie theory. Gabriel’s theorem says that a connected finite quiver has finitely many indecomposable representations up to isomorphism precisely when its underlying graph is Dynkin of type $A$, $D$, or $E$. Their dimension vectors are the positive roots. For the $A_n$ quiver, the indecomposables correspond to intervals of vertices: put a one-dimensional space at each vertex in the interval, zero elsewhere, and identity maps inside the interval.</p>
+<p>For a general quiver, classifying the representations is much harder. We can still describe their moduli stack quite easily.</p>
+<p>Fix a dimension vector $d=(d_i)_{i\in I}$. Set</p>
+
+\[
+R_Q(d)=\bigoplus_{a:i\to j}\operatorname{Hom}(\mathbf C^{d_i},\mathbf C^{d_j}),
+\qquad
+G(d)=\prod_{i\in I}\mathrm{GL}_{d_i}.
+\]
+
+<p>The change-of-basis action is</p>
+
+\[
+(g_i)\cdot(A_a)=(g_jA_ag_i^{-1})_{a:i\to j},
+\]
+
+<p>and the moduli stack is</p>
+
+\[
+\mathscr X_Q(d)=R_Q(d)/G(d).
+\]
+
+<p>The points of this quotient stack are representations on the fixed vector spaces $\mathbf C^{d_i}$, and its isomorphisms are changes of basis. More generally, a family over a scheme $S$ is a collection of rank-$d_i$ vector bundles $V_i$ on $S$, together with maps $V_i\to V_j$ along the arrows. This is exactly a family of $\mathbf C Q$-modules. Thus the quotient is the moduli stack of representations of the path algebra.</p>
+<p>This stack is smooth, since $R_Q(d)$ is an affine space. Its affine GIT quotient is a good moduli space whose closed points correspond to semisimple representations, and it may be singular.</p>
+<p>For the Jordan quiver, our identification with torsion sheaves gives</p>
+
+\[
+\mathcal M_{\mathbf A^1}(d)
+\cong\mathscr X_Q(d)
+=\mathfrak{gl}_d/\mathrm{GL}_d.
+\]
+
+<p>This is a global description of the stack of length-$d$ torsion sheaves on $\mathbf A^1$ by matrices and changes of basis.</p>
+<h2>The cohomological Hall algebra</h2>
+<p>Let us now take the cohomology of these stacks. The cohomological Hall algebra, or CoHA, of $Q$ with zero potential, as defined by Kontsevich–Soibelman, has underlying vector space</p>
+
+\[
+\mathcal H_Q=\bigoplus_{d\in\mathbf N^I}H^\bullet(\mathscr X_Q(d)).
+\]
+
+<p>The multiplication is defined by the correspondence we started with:</p>
+
+\[
+\mathscr X_Q(d)\times\mathscr X_Q(e)
+\xleftarrow{\ q\ }\mathscr X_Q(d,e)
+\xrightarrow{\ p\ }\mathscr X_Q(d+e).
+\]
+
+<p>Here $\mathscr X_Q(d,e)$ parametrizes representations with a subrepresentation of dimension $e$ and quotient of dimension $d$. The map $p$ is proper because subrepresentations of a fixed representation form a closed subvariety of a product of Grassmannians. To see that $q$ is smooth, choose bases for which the chosen subspace at each vertex is the last $e_i$ coordinate vectors. Every arrow map is then block triangular. Its diagonal blocks give the quotient and subrepresentation, while its off-diagonal block can vary freely. Changing the adapted bases gives a parabolic group, and this description makes $q$ a vector bundle stack over $\mathscr X_Q(d)\times\mathscr X_Q(e)$.</p>
+<p>The underlying vector space is easy to compute. Recall that the cohomology of a quotient stack is equivariant cohomology. Since $R_Q(d)$ contracts to the origin,</p>
+
+\[
+H^\bullet(\mathscr X_Q(d))
+=H^\bullet_{G(d)}(R_Q(d))
+\cong H^\bullet(BG(d))
+=\bigotimes_{i\in I}\mathbf Q[x_{i,1},\ldots,x_{i,d_i}]^{\mathfrak S_{d_i}}.
+\]
+
+<p>The variables $x_{i,r}$ are the Chern roots of the tautological bundles and have degree two. Note that these vector spaces do not depend on the arrows of $Q$. The multiplication does, as we can see from the following formula.</p>
+<p>Let $f$ be a polynomial in the variables $x_{i,r}$ in dimension $d$, and let $g$ be a polynomial in the variables $y_{i,s}$ in dimension $e$. Then</p>
+
+\[
+f\star g=
+\sum_{\sigma\in\operatorname{Sh}(d,e)}
+\sigma\left(
+f(x)g(y)
+\frac{
+\displaystyle\prod_{a:i\to j}\prod_{r=1}^{d_j}\prod_{s=1}^{e_i}(x_{j,r}-y_{i,s})
+}{
+\displaystyle\prod_{i\in I}\prod_{r=1}^{d_i}\prod_{s=1}^{e_i}(x_{i,r}-y_{i,s})
+}
+\right).
+\]
+
+<p>The sum runs over shuffles of the two groups of variables at each vertex, without dividing by the number of shuffles. The result is a polynomial, even though we have written it as a sum of rational functions.</p>
+<p>This formula is obtained by equivariant localization. It is called the shuffle description of the CoHA. For details, see <a href="https://arxiv.org/abs/1006.2706">Kontsevich–Soibelman</a>.</p>
+<p>Let us look at the quiver with one vertex and $\ell$ loops. Then</p>
+
+\[
+f\star g=
+\sum_{\sigma\in\operatorname{Sh}(d,e)}
+\sigma\left(f(x)g(y)\prod_{r=1}^d\prod_{s=1}^e(x_r-y_s)^{\ell-1}\right).
+\]
+
+<p>For the Jordan quiver, we have $\ell=1$, so all these factors cancel. The Hall product is just shuffle multiplication of symmetric polynomials. We obtain</p>
+
+\[
+\mathcal H_{\mathrm{Jordan}}
+\cong\operatorname{Sym}_{\mathbf Q}(\mathbf Q[u])
+=\mathbf Q[e_0,e_1,e_2,\ldots],
+\]
+
+<p>where $e_m$ denotes the class $u^m$. </p>
+<p>For zero loops, the same computation gives</p>
+
+\[
+1\star1=\frac1{x-y}+\frac1{y-x}=0.
+\]
+
+<p>After the usual grading shift, the dimension-one generators are odd, and the algebra is an exterior algebra. More generally, exchanging the two blocks in the $\ell$-loop formula gives the sign $(-1)^{(\ell-1)de}$. These algebras are therefore supercommutative with the corresponding parity convention.</p>
+<h2>Equivariance and K-theory</h2>
+<p>There are also equivariant versions. A torus can act by scaling the arrows, and we can use equivariant cohomology throughout the construction. For the $\ell$-loop quiver, if the loops have weights $\hbar_1,\ldots,\hbar_\ell$, the shuffle factor becomes</p>
+
+\[
+\prod_{r,s}\frac{\prod_{a=1}^{\ell}(x_r-y_s+\hbar_a)}{x_r-y_s}.
+\]
+
+<p>For the Jordan quiver, the loop-scaling action is the action induced by dilation of $\mathbf A^1$ on its torsion sheaves. Let $\hbar$ be its equivariant parameter. The factor in the product is now $(x-y+\hbar)/(x-y)$. For example,</p>
+
+\[
+e_0\star e_1=x+y-\hbar,
+\qquad
+e_1\star e_0=x+y+\hbar.
+\]
+
+<p>So the equivariant algebra is no longer commutative. Its specialization at $\hbar=0$ is the polynomial algebra we just computed.</p>
+<p>In fact, this is the standard shuffle realization of the positive part $Y_\hbar^+(\mathfrak{sl}_2)$ of the Yangian. Its generators correspond to the classes $e_m$, for $m\geq0$. See <a href="https://arxiv.org/abs/1808.09536">Tsymbaliuk, Section 6</a> for the shuffle realization and its higher-rank versions.</p>
+<p>Let us also mention the K-theoretic version. As in the previous post, by K-theory I mean the Grothendieck group of coherent sheaves. The same correspondence, with derived pullback and proper pushforward, gives a multiplication on</p>
+
+\[
+\mathcal K_Q
+=\bigoplus_d K_0(\mathscr X_Q(d))
+\cong\bigoplus_d
+\bigotimes_{i\in I}
+\mathbf Z[z_{i,1}^{\pm1},\ldots,z_{i,d_i}^{\pm1}]^{\mathfrak S_{d_i}}.
+\]
+
+<p>Here the variables are characters of the maximal tori in the groups $\mathrm{GL}_{d_i}$. In the shuffle formula, the change is that the Euler class of a line with character $L$ is $1-L^{-1}$. If the arrow $a$ is scaled with character $t_a$, the product is</p>
+
+\[
+f\star g=
+\sum_{\sigma\in\operatorname{Sh}(d,e)}
+\sigma\left(f(z)g(w)
+\frac{
+\displaystyle\prod_{a:i\to j}\prod_{r=1}^{d_j}\prod_{s=1}^{e_i}
+\left(1-t_a^{-1}\frac{w_{i,s}}{z_{j,r}}\right)
+}{
+\displaystyle\prod_i\prod_{r=1}^{d_i}\prod_{s=1}^{e_i}
+\left(1-\frac{w_{i,s}}{z_{i,r}}\right)
+}\right).
+\]
+
+<p>The equivariant coefficient ring here is the representation ring $R(T)$. </p>
+<p>For the non-equivariant Jordan quiver, the factors cancel again. After tensoring with $\mathbf Q$, this gives</p>
+
+\[
+\mathcal K_{\mathrm{Jordan},\mathbf Q}
+\cong\operatorname{Sym}_{\mathbf Q}(\mathbf Q[z,z^{-1}]).
+\]
+
+<p>Keeping the loop character $t$ instead gives the kernel</p>
+
+\[
+\frac{1-t^{-1}w/z}{1-w/z}.
+\]
+
+<p>Over the generic coefficient field, this realizes the positive part $U_q^+(L\mathfrak{sl}_2)$ of the quantum loop algebra. Here, “positive” refers to the positive root of $\mathfrak{sl}_2$, while the loop index is allowed to be any integer. See again <a href="https://arxiv.org/abs/1808.09536">Tsymbaliuk</a>.</p>
+<p>One can see the relation between the two formulas by putting $z=e^{\varepsilon x}$, $w=e^{\varepsilon y}$, and $t=e^{\varepsilon\hbar}$. As $\varepsilon$ tends to zero,</p>
+
+\[
+\frac{1-t^{-1}w/z}{1-w/z}
+\longrightarrow\frac{x-y+\hbar}{x-y}.
+\]
+
+<p>So the cohomological formula is the additive limit of the K-theoretic one.</p>
+<h2>Quivers with potential</h2>
+<p>Next, we can add one more ingredient to the quiver, namely a potential. This is a linear combination $W$ of cyclic paths, considered up to cyclic permutation. The trace is unchanged by cyclic permutation, so evaluating the paths on a representation gives a well-defined function</p>
+
+\[
+W_d=\operatorname{Tr}(W):\mathscr X_Q(d)\longrightarrow\mathbf A^1.
+\]
+
+<p>In the nonzero examples below, we can assign nonnegative weights to the arrows so that $W$ is homogeneous of positive weight. This will be useful when we discuss computations.</p>
+<p>The critical equations of $W_d$ are the relations of the Jacobi algebra</p>
+
+\[
+\operatorname{Jac}(Q,W)
+=\mathbf C Q/(\partial_aW:a\in Q_1).
+\]
+
+<p>The cyclic derivative $\partial_a$ means: cut a cyclic word just after each occurrence of $a$, remove that occurrence, and sum the remaining paths. Thus the critical locus parametrizes representations of an algebra with relations.</p>
+<p>For the Jordan quiver and $W=x^{n+1}$, we get</p>
+
+\[
+\operatorname{Jac}(Q,W)=\mathbf C[x]/(x^n).
+\]
+
+<p>Its representations are matrices $X$ satisfying $X^n=0$. In the description by torsion sheaves on $\mathbf A^1$, these are sheaves supported on the length-$n$ thickening of the origin.</p>
+<p>Here is a fundamental example that we will use below. Take the quiver with one vertex and three loops $X,Y,Z$, and the potential</p>
+
+\[
+W=Z[X,Y].
+\]
+
+<p>Its cyclic derivatives are $[Y,Z]$, $[Z,X]$, and $[X,Y]$. Therefore</p>
+
+\[
+\operatorname{Jac}(Q,W)=\mathbf C[X,Y,Z].
+\]
+
+<p>Finite-dimensional representations are triples of pairwise commuting matrices, or equivalently zero-dimensional torsion sheaves on $\mathbf A^3$. The same example will reappear as the tripled Jordan quiver, where dimensional reduction relates its critical cohomology to the Hall algebra of zero-dimensional sheaves on $\mathbf A^2$.</p>
+<p>The critical locus is usually singular. We would like a linearization adapted to this description of the moduli problem, which remembers the function as well as its critical locus. For cohomology, this is provided by vanishing cycles. The construction of Kontsevich–Soibelman works with these coefficients as well, using the properties of vanishing cycle.</p>
+<h2>Vanishing cycles</h2>
+<p>Let us briefly recall what vanishing cycles are. Suppose $f:X\to\mathbf A^1$ is a function on a smooth space. We want to compare the fiber over zero with a nearby fiber. Locally, at a point of $f^{-1}(0)$, we intersect $f^{-1}(\varepsilon)$ with a small ball. This is the Milnor fiber, and its reduced cohomology records the topology that disappears when $\varepsilon$ goes to zero.</p>
+<p>For example, if $f(z)=z^m$, the nearby fiber consists of $m$ points. Their reduced cohomology has dimension $m-1$. Although the underlying critical set is just the origin for every $m\geq2$, the vanishing cycles distinguish these functions.</p>
+<p>For $f(x,y)=xy$, the nearby local fiber is an annulus. Its circle disappears when the fiber becomes the union of the two coordinate axes.</p>
+<p>Let $i:X_0=f^{-1}(0)\hookrightarrow X$, and write $\psi_f$ for nearby cycles. I will use the shifted convention</p>
+
+\[
+\phi_f\mathbf Q_X
+=\operatorname{Cone}(i^*\mathbf Q_X\longrightarrow\psi_f\mathbf Q_X)[-1].
+\]
+
+<p>This convention gives $\phi_0\mathbf Q_X=\mathbf Q_X$, which is convenient for recovering the zero-potential case. We regard the complex as a complex on $X$, supported on the critical points in the zero fiber. Under our homogeneity assumption, all critical points lie in that fiber.</p>
+<p>The cohomology $H^\bullet(X,\phi_f\mathbf Q_X)$ is called critical cohomology. For a quiver with potential, the underlying vector space of the CoHA is</p>
+
+\[
+\mathcal H_{Q,W}
+=\bigoplus_d H^\bullet(\mathscr X_Q(d),\phi_{W_d}\mathbf Q).
+\]
+
+<p>To define the product, observe that the trace of a cyclic word on block-triangular matrices is the sum of its traces on the diagonal blocks. Thus, on the extension stack,</p>
+
+\[
+p^*W_{d+e}=q^*(W_d\boxplus W_e).
+\]
+
+<p>Vanishing cycles commute with proper pushforward and smooth pullback, with the appropriate shifts. There is also an analogue of the Künneth theorem, called the Thom–Sebastiani theorem, for sums of functions. These properties allow us to use the same formula $p_*q^*$ for the multiplication. See <a href="https://arxiv.org/abs/1311.7172">Davison</a> for a detailed treatment.</p>
+<p>There are also equivariant versions for tori preserving $W$. </p>
+<h2>Relative cohomology and forgetting the potential</h2>
+<p>For computations, it is useful to relate these groups to more familiar cohomology groups. We can do this using relative cohomology when the function is homogeneous.</p>
+<p>Suppose $X$ is a complex vector space with a linear $\mathbf C^*$-action of nonnegative weights and $f$ has positive weight. Write $X_1=f^{-1}(1)$. With our convention,</p>
+
+\[
+H^k(X,\phi_f\mathbf Q_X)\cong H^k(X,X_1;\mathbf Q).
+\]
+
+<p>The same holds equivariantly for a commuting reductive group preserving $f$. The scaling action identifies the topology of the nonzero fibers, up to monodromy, while both $X$ and $X_0$ retract onto the weight-zero subspace. The nearby-cycle triangle then becomes the relative cohomology sequence. This description concerns the underlying cohomology; the vanishing-cycle object also retains monodromy. See the homogeneous setup discussed <a href="https://arxiv.org/abs/2001.03275">here</a>.</p>
+<p>For $f=z^m$, this reduces the calculation to the pair $(\mathbf C,\mu_m)$:</p>
+
+\[
+0\longrightarrow\mathbf Q\xrightarrow{\Delta}\mathbf Q^m
+\longrightarrow H^1(\mathbf C,\mu_m)\longrightarrow0.
+\]
+
+<p>Thus $H^1(\mathbf C,\phi_f\mathbf Q)=\mathbf Q^{m-1}$, as expected. For $f=xy$, the global fiber $X_1\cong\mathbf C^*$ gives one copy of $\mathbf Q$ in relative degree two. For $f=0$, the fiber $X_1$ is empty, so we recover ordinary cohomology.</p>
+<p>There is a natural map from relative to absolute cohomology,</p>
+
+\[
+H^\bullet(X,X_1)\longrightarrow H^\bullet(X).
+\]
+
+<p>For a symmetric quiver with a homogeneous potential as above, these maps assemble into the forget-the-potential homomorphism</p>
+
+\[
+\mathcal H^T_{Q,W}\longrightarrow\mathcal H^T_{Q,0}.
+\]
+
+<p>Its compatibility with multiplication is a geometric statement about the specialization maps and Hall correspondences. See <a href="https://arxiv.org/abs/2312.14008">Botta–Davison, Section 4.4</a> and <a href="https://arxiv.org/abs/2604.00124">Jindal–Neguţ, Section 3.11</a>.</p>
+<p>This map is useful because we know how to compute the algebra on the right, as it is a shuffle algebra. In some equivariant examples the map is injective, and one can then study the critical CoHA by describing its image in the shuffle algebra. Injectivity does require a separate argument. For example, for $f=z^m$, the nonzero relative cohomology in degree one maps to $H^1(\mathbf C)=0$. In this particular example, the forget-the-potential map is not injective because there is non-trivial monodromy on the critical cohomology.</p>
+<p>The loop-nilpotent tripled-quiver CoHA is an important example. Its map to the zero-potential shuffle algebra is injective (for some equivariant versions). This uses dimensional reduction and a stratification of the stack of representations with a nilpotent endomorphism in Jordan types.</p>
+<h2>Dimensional reduction</h2>
+<p>One important technique in computing vanishing cycles goes under the name of dimensional reduction. Suppose we start with equations $s_1(x)=\cdots=s_r(x)=0$ on a smooth space $X$. Introduce variables $z_1,\ldots,z_r$ and consider the function</p>
+
+\[
+f_s(x,z_1,\ldots,z_r)=\sum_{i=1}^r s_i(x)z_i
+\quad\text{on }X\times\mathbf A^r.
+\]
+
+<p>More generally, we can take a vector bundle $E\to X$ and a section $s$ of $E^\vee$, and use the pairing</p>
+
+\[
+f_s(x,v)=\langle s(x),v\rangle
+\quad\text{on }\operatorname{Tot}(E).
+\]
+
+<p>The function is linear in the added variables. The dimensional reduction theorem identifies the critical cohomology of this function with the Borel–Moore homology of $Z$.Namely, for a smooth variety $X$ of complex dimension $N$,</p>
+
+\[
+H^k(\operatorname{Tot}(E),\phi_{f_s}\mathbf Q)
+\cong H^{\mathrm{BM}}_{2N-k}(Z;\mathbf Q)
+\]
+
+<p>There is an equivariant version for the quotient stacks used here. The theorem does not require $Z$ to be smooth, see <a href="https://arxiv.org/abs/1311.7172">here</a> for a more general statement about the vanishing cycles functor.</p>
+<p>This is useful in both ways. First, if the space $Z$ is simple enough, for example if it has a cellular stratification, one may compute the critical cohomology. Second, if $Z$ is singular, it may be easier to compute, or use the properties of the vanishing cycles functor. </p>
+<h2>The preprojective algebra and the tripled quiver</h2>
+<p>Let $Q$ be a quiver. First add an opposite arrow $a^*:j\to i$ for every arrow $a:i\to j$. This gives the doubled quiver $\overline Q$. The preprojective algebra is the path algebra of $\overline Q$ with the relations</p>
+
+\[
+\Pi_Q=\mathbf C\overline Q/(\mu_i:i\in I),
+\qquad
+\mu_i=\sum_{a:j\to i}aa^*
+-\sum_{a:i\to j}a^*a.
+\]
+
+<p>Here paths are composed from right to left. Thus each $\mu_i$ is a sum of paths starting and ending at $i$. On representations, these are matrix equations, and we write</p>
+
+\[
+\mathscr P_Q(d)=\mu_d^{-1}(0)/G(d)
+\]
+
+<p>for the stack of representations of $\Pi_Q$.</p>
+<p>Next, add a loop $\omega_i$ at every vertex to obtain the tripled quiver $\widetilde Q$. There is a natural potential</p>
+
+\[
+\widetilde W
+=\sum_{a:i\to j}\big(\omega_j aa^*-\omega_i a^*a\big).
+\]
+
+<p>The reason for this choice is that its trace is</p>
+
+\[
+\operatorname{Tr}(\widetilde W)
+=\sum_i\operatorname{Tr}(\Omega_i\mu_i(A)),
+\]
+
+<p>where $\Omega_i$ is the matrix assigned to $\omega_i$. So we are in exactly the situation of dimensional reduction: the coefficients of the added variables are the equations we want to impose.</p>
+<p>Reducing along the added loops gives</p>
+
+\[
+\mathcal H_{\widetilde Q,\widetilde W}
+\cong\bigoplus_d
+H^{\mathrm{BM}}_\bullet(\mathscr P_Q(d)),
+\]
+
+<p>with the standard regrading. The right-hand side is the preprojective CoHA, and the identification respects the Hall products; see <a href="https://arxiv.org/abs/1604.01477">Yang–Zhao</a>.</p>
+<p>The stacks $\mathscr P_Q(d)$ are generally singular, and defining the Hall product directly requires a refined pullback in place of the smooth pullback used earlier. The tripled quiver gives another way of obtaining this algebra, using vanishing cycles on a smooth stack.</p>
+<p>Let us spell this out for the Jordan quiver. Its original loop is $x$, its reverse arrow is another loop $y$, and the preprojective relation is $[x,y]=0$. Hence</p>
+
+\[
+\Pi_Q=\mathbf C\langle x,y\rangle/([x,y])
+\cong\mathbf C[x,y].
+\]
+
+<p>A finite-dimensional representation of this algebra is a pair of commuting matrices. Equivalently, it is a zero-dimensional torsion sheaf on $\mathbf A^2$. Writing $\mathcal M_{\mathbf A^2}(d)$ for the stack of such sheaves of length $d$, we have</p>
+
+\[
+\mathcal M_{\mathbf A^2}(d)
+=\{(X,Y)\in\mathfrak{gl}_d^2:[X,Y]=0\}/\mathrm{GL}_d.
+\]
+
+<p>The tripled Jordan quiver has three loops $x,y,z$, where $z=\omega$, and potential</p>
+
+\[
+\widetilde W=z[x,y].
+\]
+
+<p>The cyclic derivatives are $[y,z]$, $[z,x]$, and $[x,y]$, so</p>
+
+\[
+\operatorname{Jac}(\widetilde Q,\widetilde W)
+\cong\mathbf C[x,y,z].
+\]
+
+<p>Its finite-dimensional representations are zero-dimensional torsion sheaves on $\mathbf A^3$. Their moduli stack is</p>
+
+\[
+\mathcal M_{\mathbf A^3}(d)
+=\{(X,Y,Z)\in\mathfrak{gl}_d^3:
+[X,Y]=[Y,Z]=[Z,X]=0\}/\mathrm{GL}_d.
+\]
+
+<p>Thus we have three related examples: representations of the Jordan quiver are torsion sheaves on $\mathbf A^1$; representations of its preprojective algebra are zero-dimensional torsion sheaves on $\mathbf A^2$; and representations of the Jacobi algebra of its tripled quiver with potential are zero-dimensional torsion sheaves on $\mathbf A^3$.</p>
+<p>In the last example, we use the critical cohomology coming from the function $\operatorname{Tr}(Z[X,Y])$ on $\mathfrak{gl}_d^3/\mathrm{GL}_d$. Dimensional reduction identifies it, after regrading, with the Borel–Moore homology of $\mathcal M_{\mathbf A^2}(d)$. This is a comparison between the linearizations of the two moduli stacks. The stacks themselves are quite different.</p>
+<p>We could instead reduce along the reverse arrows $a^*$. Their coefficients impose</p>
+
+\[
+A_a\Omega_i=\Omega_jA_a.
+\]
+
+<p>This gives a description in terms of representations of $Q$ equipped with an endomorphism. For the Jordan quiver, it amounts to keeping a different pair of commuting matrices. For a general quiver, it relates the homology of two moduli problems whose relation is less obvious from their definitions.</p>
+<h2>A nilpotent version</h2>
+<p>There is also a version in which we require the added loops $\Omega_i$ to act nilpotently. This condition is preserved by subobjects, quotients, and extensions, so we can again define a Hall algebra. More precisely, for the inclusion $i_{\mathrm{nil}}$ of this locus, we use the cohomology with support given by $i_{\mathrm{nil}}^!\phi_{W_d}\mathbf Q$.</p>
+<p>For the tripled Jordan quiver, this means that $Z$ is nilpotent. In the description by torsion sheaves on $\mathbf A^3$, it means that the sheaf is set-theoretically supported on the plane $z=0$. We allow $z$ to act nontrivially and nilpotently, so this includes sheaves on infinitesimal thickenings of that plane.</p>
+<p>A theorem of <a href="https://arxiv.org/abs/2607.23544">Jindal–Neguţ</a> says that the loop-nilpotent CoHA is supercommutative non-equivariantly. There are also analogous recent results of Hennecart. More generally, this holds after setting the equivariant weight $\hbar$ of the added loops to zero. The word “super” accounts for the grading signs. Keeping $\hbar$ gives a (possibly) noncommutative deformation.</p>
+<p>Here the nilpotency condition is on the added loops. The full preprojective CoHA, without this support condition, may not be commutative.</p>
+<h2>Hall algebras and Yangians</h2>
+<p>Lastly, let us return to the relation with Lie theory. The preprojective CoHA acts on the cohomology of Nakajima quiver varieties. These are moduli spaces of framed representations satisfying the preprojective relation and a stability condition. Examples include cotangent bundles of Grassmannians and Hilbert schemes of points on $\mathbf A^2$.</p>
+<p>Maulik and Okounkov constructed algebras acting on the same cohomologies by a different method, using stable envelopes and $R$-matrices. Their algebras are called Maulik–Okounkov Yangians. It is natural to ask how these actions are related to the Hall algebra actions.</p>
+<p>The comparison results of <a href="https://arxiv.org/abs/2312.14008">Botta–Davison</a> and <a href="https://arxiv.org/abs/2312.15803">Schiffmann–Vasserot</a> identify the appropriate equivariant preprojective CoHA with the positive half of the Maulik–Okounkov Yangian. Here we use a torus scaling the arrows of the tripled quiver and preserving its potential. There is an isomorphism</p>
+
+\[
+\mathcal H^T(\Pi_Q)\cong Y_Q^{\mathrm{MO},+}
+\]
+
+<p>which respects the two actions on the cohomology of Nakajima varieties.</p>
+<h2>References</h2>
+<ol class="bibliography">
+  <li>Enrico Arbarello and Giulia Saccà, <a href="https://arxiv.org/abs/1505.00759"><cite>Singularities of moduli spaces of sheaves on K3 surfaces and Nakajima quiver varieties</cite></a>, 2015.</li>
+  <li>Tommaso Maria Botta and Ben Davison, <a href="https://arxiv.org/abs/2312.14008"><cite>Okounkov’s conjecture via BPS Lie algebras</cite></a>, 2023.</li>
+  <li>Ben Davison, <a href="https://arxiv.org/abs/1311.7172"><cite>The critical CoHA of a quiver with potential</cite></a>, 2013.</li>
+  <li>Ben Davison and Tudor Pădurariu, <a href="https://arxiv.org/abs/2001.03275"><cite>Deformed dimensional reduction</cite></a>, 2020.</li>
+  <li>Lucien Hennecart, <a href="https://arxiv.org/abs/2607.06512"><cite>Commutativity of nilpotent cohomological Hall algebras of $\mathbf A^2$</cite></a>, 2026.</li>
+  <li>Shivang Jindal and Woonam Lim, <a href="https://arxiv.org/abs/2609.08323"><cite>Cohomological Hall algebras and Quot schemes of curves</cite></a>, 2026.</li>
+  <li>Shivang Jindal and Andrei Neguţ, <a href="https://arxiv.org/abs/2604.00124"><cite>BPS Lie algebras, perverse filtrations and shuffle algebras</cite></a>, 2026.</li>
+  <li>Shivang Jindal and Andrei Neguţ, <a href="https://arxiv.org/abs/2607.23544"><cite>The loop-nilpotent cohomological Hall algebra</cite></a>, 2026.</li>
+  <li>Maxim Kontsevich and Yan Soibelman, <a href="https://arxiv.org/abs/1006.2706"><cite>Cohomological Hall algebra, exponential Hodge structures and motivic Donaldson–Thomas invariants</cite></a>, 2010.</li>
+  <li>Davesh Maulik and Andrei Okounkov, <a href="https://arxiv.org/abs/1211.1287"><cite>Quantum Groups and Quantum Cohomology</cite></a>, 2012.</li>
+  <li>Francesco Sala and Olivier Schiffmann, <a href="https://content.algebraicgeometry.nl/2020-3/2020-3-010.pdf"><cite>Cohomological Hall algebra of Higgs sheaves on a curve</cite></a>, 2020.</li>
+  <li>Olivier Schiffmann, <a href="https://arxiv.org/abs/math/0611617"><cite>Lectures on Hall algebras</cite></a>, 2006.</li>
+  <li>Olivier Schiffmann and Eric Vasserot, <a href="https://arxiv.org/abs/2312.15803"><cite>Cohomological Hall algebras of quivers and Yangians</cite></a>, 2023.</li>
+  <li>Yukinobu Toda, <a href="https://arxiv.org/abs/1710.01841"><cite>Moduli stacks of semistable sheaves and representations of Ext-quivers</cite></a>, 2017.</li>
+  <li>Alexander Tsymbaliuk, <a href="https://arxiv.org/abs/1808.09536"><cite>PBWD bases and shuffle algebra realizations for quantum loop algebras and their integral forms</cite></a>, 2018.</li>
+  <li>Yaping Yang and Gufang Zhao, <a href="https://arxiv.org/abs/1604.01477"><cite>On two cohomological Hall algebras</cite></a>, 2016.</li>
+</ol>
+
+
+        <p class="post-back">
+          <a href="https://tudorpad.github.io/blog/">← Back to the blog</a>
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>
+          © <span data-current-year>2026</span> Tudor Pădurariu
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
