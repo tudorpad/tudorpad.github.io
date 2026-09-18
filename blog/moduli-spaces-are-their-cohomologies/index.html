@@ -165,18 +165,18 @@
           the degree-zero line bundles form the Jacobian $\operatorname{Pic}^0(C)$.
           In algebraic topology, classifying spaces play a similar role:
           homotopy classes of maps $S\to BU(r)$ classify rank-$r$ complex
-          vector bundles on a CW complex $S$. The idea is that families of
+          vector bundles on a CW complex $S$. The idea behind their construction (behind the functor of points approach) is that families of
           objects are described by maps to a fixed space.
         </p>
 
         <p>
-          Such spaces are interesting for several reasons; see the answers
+          Such spaces are interesting for several reasons, see the answers
           collected by Rahul Pandharipande in
           <a href="https://people.math.ethz.ch/~rahul/ModuliReflections.pdf"><cite>Reflections on moduli space</cite></a>.
           As far as I see, there are two main initial reasons to study them: the hope that the moduli
           space reveals something about the general member of the class
           parametrized, and the fact that moduli spaces are new spaces, with
-          interesting properties, worth studying in their own right. One also later learns that they are connected to many other areas of mathematics.
+          interesting geometries and symmetries, worth studying in their own right. One also later learns that they are connected to many other areas of mathematics.
         </p>
 
         <p>
@@ -212,7 +212,7 @@
           manifold, such as the surface underlying a Riemann surface. Many of
           these moduli problems have local descriptions in terms of
           representations of associative algebras constructed from quivers.
-          A quiver is simply a directed graph. These are also objects of independent interest in algebra
+          A quiver is simply a directed finite graph. These are also objects of independent interest in algebra
           and Lie theory.
         </p>
 
@@ -220,8 +220,8 @@
 
         <p>
           With moduli spaces, a standard issue is constructing the “right”
-          space. When one first learns the subject, “right” is taken to be
-          “a proper variety”. For the moduli of curves, one has to add certain
+          space. When one first learns the subject, “right” means
+          “a proper variety”. For the moduli of genus $g$ curves, one has to add certain
           singular curves, namely stable nodal curves, to obtain
         </p>
 
@@ -251,7 +251,7 @@
           proper subbundle $F\subset E$, and stable if the inequality is
           always strict. So the “moduli space of vector bundles” one may first encounter
           is actually the moduli space of semistable vector bundles
-          of fixed rank and degree. There are two moduli spaces here: the moduli stack of semistable vector bundles, which is smooth, but a stack, and the associated variety, which may be singular and identifies a semistable bundle with its associated polystable bundle.
+          of fixed rank and degree. There are two moduli spaces here: the moduli stack of semistable vector bundles, which is smooth, but a stack, and the associated variety (the good moduli space), which may be singular and identifies a semistable bundle with its associated polystable bundle.
         </p>
 
         <h2>Correspondences between moduli spaces</h2>
@@ -363,12 +363,12 @@
 
         <p>
           Singular cohomology is possibly the main linearization of a variety.
-          Part of its usefulness is that each $H^i(X,\mathbf Q)$ is
+          Part of its centrality in the subject is that each $H^i(X,\mathbf Q)$ is
           a finite-dimensional $\mathbf Q$-vector space for a complex variety of finite type. One also has
           other “linearizations”, such as integral cohomology, (mixed) Hodge
           structures, topological $K$-theory, Chow groups, algebraic
           $K$-theory, and so on. Chow groups and algebraic $K$-groups can
-          be much harder to compute, and can be infinite-dimensional even after
+          be much harder to compute, as they are not topological invariants, and can be infinite-dimensional even after
           tensoring with $\mathbf Q$.
         </p>
 
@@ -470,13 +470,13 @@
         <p>
           It may happen that we restrict to semistable objects, which is the case if we want to eventually study an actual variety. The universal
           or tautological objects live naturally on the stack and are then
-          restricted to the semistable part. This happens, for example, for
+          restricted to the semistable part. The first examples where one sees this is practice are the moduli of
           vector bundles on a curve and for representations of a quiver. So the
           restriction map is useful to study.
         </p>
 
         <p>
-          Let’s discuss one example, that of projective space $\mathbf P^n$,
+          Let’s discuss one example, that of the projective space $\mathbf P^n$,
           with $n\ge1$. Here and below, quotients such as $X/G$ mean
           quotient stacks. For the scalar $\mathbf C^*$-action on $\mathbf C^{n+1}$, we have
         </p>
@@ -568,7 +568,7 @@
           The projective-space example has one because the grading selects
           representatives. I will talk about this construction later, but let me just mention that, in the symplectic setting, there are such lifts, which go under the name of
           <a href="https://arxiv.org/abs/2010.13217">nonabelian stable
-          envelopes</a> or <a href="https://arxiv.org/abs/2601.08004">BPS cohomology</a>.
+          envelopes</a> or, more generally, <a href="https://arxiv.org/abs/2601.08004">BPS cohomology</a>.
         </p>
 
         <h2>K-theory</h2>
@@ -656,9 +656,8 @@
         </p>
 
         <p>
-          Lastly, we did not say much about singularities. The usual
-          linearizations still make sense for singular spaces, but may miss
-          information relevant to the moduli problem. For sheaves on a
+          Lastly, we did not say much about the possible singularities of the moduli spaces of sheaves, which can be pretty terrible. The usual
+          linearizations still make sense for singular moduli spaces, but may not be the most adequate ones to study them. For sheaves on a
           Calabi–Yau threefold, or representations of a quiver with potential,
           the moduli space is locally described
           as the critical locus of a function on a smooth space or stack.
@@ -674,7 +673,7 @@
           and <a href="https://arxiv.org/abs/2601.08004">Davison’s ICM 2026 article</a>.
           For a small sample of foundational papers, see
           <a href="https://arxiv.org/abs/1006.2706">Kontsevich–Soibelman</a>
-          and <a href="https://arxiv.org/abs/1211.3259">Brav–Bussi–Dupont–Joyce–Szendrői</a>.
+          and <a href="https://arxiv.org/abs/1211.3259">Brav–Bussi–Dupont–Joyce–Szendrői</a>. I will come back to an overview of cohomological Donaldson-Thomasd theory in later posts.
         </p>
 
         <section aria-labelledby="references-title">
