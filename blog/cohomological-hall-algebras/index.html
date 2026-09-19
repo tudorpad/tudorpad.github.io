@@ -1003,24 +1003,24 @@ h1 {
     <main id="content" class="page-main">
       <article class="blog-post">
         <header class="post-header">
-          <h1>Cohomological Hall algebras</h1>
+          <h1>Cohomological Hall algebras for quivers with potential</h1>
           <p class="post-meta">
             <time datetime="2026-09-18">18 September 2026</time>
           </p>
         </header>
 
-<p>I will continue the discussion from the <a href="https://tudorpad.github.io/blog/moduli-spaces-are-their-cohomologies/">previous post</a>. There, the focus was on moduli spaces and their cohomologies. One important piece was correspondences relating the different moduli spaces of objects in an abelian category, and we said that many of these correspondences are captured by Hall algebras.</p>
-<p>Here I want to explain this construction, mostly for representations of quivers. These are examples where both the moduli stacks and the operations on their cohomology can be written down explicitly. They also include some familiar moduli problems, such as torsion sheaves on the affine line. By adding a potential, we will obtain more examples, including zero-dimensional sheaves on the affine plane and on affine three-space.</p>
-<p>All spaces will be over $\mathbf C$, except when we briefly mention Hall algebras over finite fields, and cohomology will have rational coefficients. I will usually omit the dimension shifts and Tate twists. They are important for the precise statements, but I would first like to explain the constructions and some computations.</p>
+<p>I will continue the discussion from the <a href="https://tudorpad.github.io/blog/moduli-spaces-are-their-cohomologies/">previous post</a>. There, the focus was on moduli spaces and their cohomologies. One important piece was the class of correspondences relating different moduli spaces of objects in an abelian category, and we said that many of these correspondences are captured by Hall algebras.</p>
+<p>Here I want to explain this construction, mostly for representations of quivers. These are examples where both the moduli stacks and the operations on their cohomology can be written down explicitly. They also include some familiar moduli problems, such as torsion sheaves on the affine line. By adding a potential, we will obtain more examples, including zero-dimensional sheaves on the affine three dimensional space, and, by dimensional reduction, also zero-dimensional sheaves on the affine plane.</p>
+<p>All spaces will be over $\mathbf C$, except when we briefly mention Hall algebras over finite fields, and cohomology will have rational coefficients. I will usually omit the dimension shifts.</p>
 <h2>Hall algebras</h2>
-<p>Let us briefly explain the heuristic. Let $\mathcal A$ be an abelian category and let $\mathcal M_{\mathcal A}$ be its moduli stack of objects, assuming such a stack exists. Its points correspond to isomorphism classes of objects in $\mathcal A$, and each point comes with a group, namely the automorphisms of that object. For example, if $\mathcal A$ is the category of finite-dimensional vector spaces, then</p>
+<p>Let us briefly explain the heuristic behind the construction of Hall algebras. Let $\mathcal A$ be an abelian category and let $\mathcal M_{\mathcal A}$ be its moduli stack of objects, assuming such a stack exists. Its points correspond to isomorphism classes of objects in $\mathcal A$, and each point comes with a group, namely the automorphisms of that object. For example, if $\mathcal A$ is the category of finite-dimensional vector spaces, then</p>
 
 \[
 \mathcal M_{\mathrm{Vect}}
 =\coprod_{d\geq 0} B\mathrm{GL}_d.
 \]
 
-<p>So there is one component for each dimension $d$, which is a point with automorphism group $\mathrm{GL}_d$.</p>
+<p>So there is one component for each dimension $d$, the dimension $d$ vector space, which is a point with automorphism group $\mathrm{GL}_d$.</p>
 <p>Let $\mathcal E_{\mathcal A}$ be the stack of extensions, or equivalently of pairs of objects $(B\subset E)$ in $\mathcal A$. Such a pair gives a short exact sequence</p>
 
 \[
@@ -1036,7 +1036,6 @@ h1 {
 \qquad q(E,B)=(E/B,B),\quad p(E,B)=E.
 \]
 
-<p>The map $q$ remembers the quotient and the subobject, in that order, while $p$ remembers the middle term.</p>
 <p>Next, choose a linearization $H(\mathcal M_{\mathcal A})$. One can first pretend that this is some sort of cohomology. This will be the underlying vector space of the Hall algebra. We would like to define a multiplication by</p>
 
 \[
@@ -1047,7 +1046,7 @@ h1 {
 <p>Associativity comes from considering filtrations with three successive quotients. The two ways of multiplying three classes correspond to the two ways of grouping the quotients of the same filtration. Once the pullback and pushforward operations satisfy the appropriate base-change identities, the products agree.</p>
 <p>This is actually the main difficulty in the construction: choosing a linearization for which these operations exist for the maps $p$ and $q$. We would like to include many interesting abelian categories, but also to use linearizations that we can compute. At the end of the day, following Ringel and many other people, we would like to identify the resulting algebras with objects in Lie theory, or with generalizations of those objects.</p>
 <p>For example, if $q$ is smooth and $p$ is proper, we have the required pullback and pushforward in Borel–Moore homology. On smooth stacks, duality lets us write the construction in singular cohomology, with degree shifts. These are the properties we will check in our first examples.</p>
-<p>The original construction of Ringel uses as a linearization the vector space spanned by isomorphism classes of representations over a fixed finite field. The coefficient of $[E]$ in $[A]\star[B]$ counts subobjects of $E$ isomorphic to $B$ with quotient isomorphic to $A$. After a certain twist (involving the Euler form), the subalgebra generated by the vertex simples of a quiver with no cycles gives the positive half of the corresponding quantum group. In Dynkin type, it is the entire Hall algebra. I prefer not to spend much time on this construction, since it is covered by the excellent <a href="https://arxiv.org/abs/math/0611617">notes of Schiffmann</a>. I hope to come back in later posts to this construction and explain it is included in the study of K-theoretic Hall algebras.</p>
+<p>The original construction of Ringel uses as a linearization the vector space spanned by isomorphism classes of representations over a fixed finite field. The coefficient of $[E]$ in $[A]\star[B]$ counts subobjects of $E$ isomorphic to $B$ with quotient isomorphic to $A$. After a certain twist (involving the Euler form), the subalgebra generated by the simples supported at a vertex of a quiver with no cycles gives the positive half of the corresponding quantum group. In Dynkin type, it is the entire Hall algebra. I prefer not to spend much time on this construction, since it is covered by the excellent <a href="https://arxiv.org/abs/math/0611617">notes of Schiffmann</a>. I hope to come back in later posts to this construction and explain that it is included in the study of K-theoretic Hall algebras.</p>
 <h2>Sheaves on a curve</h2>
 <p>Let us first return to the example from the previous post. Take a smooth projective curve $C$ and the abelian category $\operatorname{Coh}(C)$ of coherent sheaves on $C$. The maps $p$ and $q$ have the properties we want, once we fix the ranks and degrees of the subobject and quotient.</p>
 <p>For fixed $A$ and $B$, the fiber of $q$ is the stack</p>
@@ -1057,7 +1056,7 @@ h1 {
 \]
 
 <p>Here the additive group $\operatorname{Hom}(A,B)$ records automorphisms of an extension that act trivially on its ends. In families, these fibers form a vector bundle stack, so $q$ is smooth. For $p$, the fiber over $E$ is a Quot scheme with a fixed Hilbert polynomial, so $p$ is proper. See <a href="https://content.algebraicgeometry.nl/2020-3/2020-3-010.pdf">Sala–Schiffmann, Section 3.2</a>.</p>
-<p>The same deformation theory explains the smoothness of the stack of coherent sheaves: infinitesimal automorphisms are $\operatorname{Ext}^0(F,F)$, deformation directions are $\operatorname{Ext}^1(F,F)$, and the obstruction space $\operatorname{Ext}^2(F,F)$ vanishes on a smooth curve.</p>
+<p>The same argument explains the smoothness of the stack of coherent sheaves: infinitesimal automorphisms are $\operatorname{Ext}^0(F,F)$, deformation directions are $\operatorname{Ext}^1(F,F)$, and the obstruction space $\operatorname{Ext}^2(F,F)$ vanishes on a smooth curve.</p>
 <p>There are still some difficulties. Even at fixed rank and degree, the full stack need not be of finite type. For example, on $\mathbf P^1$ we have all the bundles $\mathcal O(n)\oplus\mathcal O(-n)$, of rank two and degree zero, with arbitrarily large instability. One therefore works with finite-type open substacks and suitable limits. Restricting to bundles or imposing stability also changes the correspondence.</p>
 <p>A smaller example is the abelian category $\operatorname{Coh}_0(C)$ of torsion coherent sheaves on $C$. These are sheaves supported at finitely many points. Write $\mathcal M_C(d)$ for their moduli stack in length $d$. The corresponding cohomological Hall algebra is</p>
 
@@ -1076,10 +1075,10 @@ H^\bullet(\mathcal M_C(1))
 \]
 
 <p>Here $u$ is the first Chern class of the universal line bundle on $B\mathbf C^*$, of degree two.</p>
-<p>The same construction works for a smooth nonprojective curve when we consider torsion sheaves of finite length. We will compute it for $C=\mathbf A^1$ below, using the Jordan quiver. For the torsion CoHA of a general smooth projective curve, including a shuffle description, see <a href="https://arxiv.org/abs/2609.08323">Jindal–Lim</a>.</p>
-<p>For the rest of this post, let us concentrate on quivers. These also give local models for moduli spaces of sheaves on varieties. For example, see <a href="https://arxiv.org/abs/1505.00759">Arbarello–Saccà</a> for certain moduli on K3 surfaces, and <a href="https://arxiv.org/abs/1710.01841">Toda</a> for descriptions by Ext-quivers with convergent relations near polystable sheaves.</p>
+<p>The construction of the Hall algebra of torsion sheaves also works for a smooth, but possibly not projective curve. We will compute it for $C=\mathbf A^1$ below, using the Jordan quiver. For the torsion CoHA of a general smooth projective curve, including a shuffle description, see <a href="https://arxiv.org/abs/2609.08323">Jindal–Lim</a>.</p>
+<p>For the rest of this post, let us concentrate on quivers. These also give local models for moduli spaces of sheaves on varieties. For example, see <a href="https://arxiv.org/abs/1505.00759">Arbarello–Saccà</a> for certain moduli on K3 surfaces, and <a href="https://arxiv.org/abs/1710.01841">Toda</a> for descriptions by Ext-quivers with relations in more general cases.</p>
 <h2>Quivers</h2>
-<p>A quiver $Q=(I,Q_1)$ is a directed graph, with vertices $I$ and arrows $Q_1$. We will assume these sets are finite. A representation consists of a vector space $V_i$ at each vertex and a linear map</p>
+<p>A quiver $Q=(I,E)$ is a directed graph, with vertices $I$ and arrows $E$. We will assume these sets are finite. A representation consists of a vector space $V_i$ at each vertex and a linear map</p>
 
 \[
 A_a:V_i\longrightarrow V_j
@@ -1118,7 +1117,7 @@ A_a:V_i\longrightarrow V_j
 1\xrightarrow{a}2,
 \]
 
-<p>a representation is a linear map $A:V_1\to V_2$. Splitting $V_1$ into its kernel and a complement, and $V_2$ into its image and a complement, writes every such representation as a direct sum of</p>
+<p>a representation is a linear map $A:V_1\to V_2$. Splitting $V_1$ into its kernel and a complement, and $V_2$ into its image and a complement, one writes every such representation as a direct sum of</p>
 
 \[
 S_1=(\mathbf C\to0),\qquad
@@ -1126,15 +1125,14 @@ S_2=(0\to\mathbf C),\qquad
 P_1=(\mathbf C\xrightarrow{1}\mathbf C).
 \]
 
-<p>The last representation is the only additional indecomposable. It appears in the nonsplit extension</p>
+<p>The last representation is the only additional indecomposable. It appears as the nonsplit extension</p>
 
 \[
 0\longrightarrow S_2\longrightarrow P_1\longrightarrow S_1\longrightarrow0.
 \]
 
-<p>This is the possibly the simplest example in which the Hall product remembers a nontrivial extension between different vertex simples.</p>
-<p>For other quivers, the classification problem leads to Lie theory. Gabriel’s theorem says that a connected finite quiver has finitely many indecomposable representations up to isomorphism precisely when its underlying graph is Dynkin of type $A$, $D$, or $E$. Their dimension vectors are the positive roots. For the $A_n$ quiver, the indecomposables correspond to intervals of vertices: put a one-dimensional space at each vertex in the interval, zero elsewhere, and identity maps inside the interval.</p>
-<p>For a general quiver, classifying the representations is much harder. We can still describe their moduli stack quite easily.</p>
+<p>For other quivers, the classification problem is related to Lie theory. Gabriel’s theorem says that a connected finite quiver has finitely many indecomposable representations up to isomorphism precisely when its underlying graph is Dynkin of type $A$, $D$, or $E$. Their dimension vectors are the positive roots. For the $A_n$ quiver, the indecomposables correspond to intervals of vertices: put a one-dimensional space at each vertex in the interval, zero elsewhere, and identity maps inside the interval.</p>
+<p>For a general quiver, classifying the representations is much harder. However, we will only consider moduli of them, which are quite explicit. In the case when we consider all of them, as in this post, the moduli stacks are very explicit, as we now see.</p>
 <p>Fix a dimension vector $d=(d_i)_{i\in I}$. Set</p>
 
 \[
@@ -1165,7 +1163,6 @@ G(d)=\prod_{i\in I}\mathrm{GL}_{d_i}.
 =\mathfrak{gl}_d/\mathrm{GL}_d.
 \]
 
-<p>This is a global description of the stack of length-$d$ torsion sheaves on $\mathbf A^1$ by matrices and changes of basis.</p>
 <h2>The cohomological Hall algebra</h2>
 <p>Let us now take the cohomology of these stacks. The cohomological Hall algebra, or CoHA, of $Q$ with zero potential, as defined by Kontsevich–Soibelman, has underlying vector space</p>
 
@@ -1182,7 +1179,7 @@ G(d)=\prod_{i\in I}\mathrm{GL}_{d_i}.
 \]
 
 <p>Here $\mathscr X_Q(d,e)$ parametrizes representations with a subrepresentation of dimension $e$ and quotient of dimension $d$. The map $p$ is proper because subrepresentations of a fixed representation form a closed subvariety of a product of Grassmannians. To see that $q$ is smooth, choose bases for which the chosen subspace at each vertex is the last $e_i$ coordinate vectors. Every arrow map is then block triangular. Its diagonal blocks give the quotient and subrepresentation, while its off-diagonal block can vary freely. Changing the adapted bases gives a parabolic group, and this description makes $q$ a vector bundle stack over $\mathscr X_Q(d)\times\mathscr X_Q(e)$.</p>
-<p>The underlying vector space is easy to compute. Recall that the cohomology of a quotient stack is equivariant cohomology. Since $R_Q(d)$ contracts to the origin,</p>
+<p>The underlying vector space is easy to compute. Recall that the cohomology of a quotient stack is equivariant cohomology. Since $R_Q(d)$ contracts to the origin, we have</p>
 
 \[
 H^\bullet(\mathscr X_Q(d))
@@ -1191,7 +1188,7 @@ H^\bullet(\mathscr X_Q(d))
 =\bigotimes_{i\in I}\mathbf Q[x_{i,1},\ldots,x_{i,d_i}]^{\mathfrak S_{d_i}}.
 \]
 
-<p>The variables $x_{i,r}$ are the Chern roots of the tautological bundles and have degree two. Note that these vector spaces do not depend on the arrows of $Q$. The multiplication does, as we can see from the following formula.</p>
+<p>The variables $x_{i,r}$ are the Chern roots of the tautological bundles and have cohomological degree two. Note that these vector spaces do not depend on the arrows of $Q$. The multiplication does, as we can see from the following formula.</p>
 <p>Let $f$ be a polynomial in the variables $x_{i,r}$ in dimension $d$, and let $g$ be a polynomial in the variables $y_{i,s}$ in dimension $e$. Then</p>
 
 \[
@@ -1207,7 +1204,7 @@ f(x)g(y)
 \right).
 \]
 
-<p>The sum runs over shuffles of the two groups of variables at each vertex, without dividing by the number of shuffles. The result is a polynomial, even though we have written it as a sum of rational functions.</p>
+<p>The sum runs over shuffles of the two groups of variables at each vertex. The result is a polynomial, even though we have written it as a sum of rational functions.</p>
 <p>This formula is obtained by equivariant localization. It is called the shuffle description of the CoHA. For details, see <a href="https://arxiv.org/abs/1006.2706">Kontsevich–Soibelman</a>.</p>
 <p>Let us look at the quiver with one vertex and $\ell$ loops. Then</p>
 
@@ -1337,16 +1334,16 @@ W=Z[X,Y].
 <p>The critical locus is usually singular. We would like a linearization adapted to this description of the moduli problem, which remembers the function as well as its critical locus. For cohomology, this is provided by vanishing cycles. The construction of Kontsevich–Soibelman works with these coefficients as well, using the properties of vanishing cycle.</p>
 <h2>Vanishing cycles</h2>
 <p>Let us briefly recall what vanishing cycles are. Suppose $f:X\to\mathbf A^1$ is a function on a smooth space. We want to compare the fiber over zero with a nearby fiber. Locally, at a point of $f^{-1}(0)$, we intersect $f^{-1}(\varepsilon)$ with a small ball. This is the Milnor fiber, and its reduced cohomology records the topology that disappears when $\varepsilon$ goes to zero.</p>
-<p>For example, if $f(z)=z^m$, the nearby fiber consists of $m$ points. Their reduced cohomology has dimension $m-1$. Although the underlying critical set is just the origin for every $m\geq2$, the vanishing cycles distinguish these functions.</p>
+<p>For example, if $f(z)=z^m$, the nearby fiber consists of $m$ points. Their reduced cohomology has dimension $m-1$.</p>
 <p>For $f(x,y)=xy$, the nearby local fiber is an annulus. Its circle disappears when the fiber becomes the union of the two coordinate axes.</p>
-<p>Let $i:X_0=f^{-1}(0)\hookrightarrow X$, and write $\psi_f$ for nearby cycles. I will use the shifted convention</p>
+<p>Let $i:X_0=f^{-1}(0)\hookrightarrow X$, and write $\psi_f$ for the nearby cycles functor. Then the vanishing cycle sheaf may be described as follows:</p>
 
 \[
 \phi_f\mathbf Q_X
 =\operatorname{Cone}(i^*\mathbf Q_X\longrightarrow\psi_f\mathbf Q_X)[-1].
 \]
 
-<p>This convention gives $\phi_0\mathbf Q_X=\mathbf Q_X$, which is convenient for recovering the zero-potential case. We regard the complex as a complex on $X$, supported on the critical points in the zero fiber. Under our homogeneity assumption, all critical points lie in that fiber.</p>
+<p>Note that $\phi_0\mathbf Q_X=\mathbf Q_X$. We regard the complex as a complex on $X$, supported on the critical points in the zero fiber. Under a standard homogeneity assumption, all critical points lie in that fiber.</p>
 <p>The cohomology $H^\bullet(X,\phi_f\mathbf Q_X)$ is called critical cohomology. For a quiver with potential, the underlying vector space of the CoHA is</p>
 
 \[
@@ -1370,7 +1367,7 @@ p^*W_{d+e}=q^*(W_d\boxplus W_e).
 H^k(X,\phi_f\mathbf Q_X)\cong H^k(X,X_1;\mathbf Q).
 \]
 
-<p>The same holds equivariantly for a commuting reductive group preserving $f$. The scaling action identifies the topology of the nonzero fibers, up to monodromy, while both $X$ and $X_0$ retract onto the weight-zero subspace. The nearby-cycle triangle then becomes the relative cohomology sequence. This description concerns the underlying cohomology; the vanishing-cycle object also retains monodromy. See the homogeneous setup discussed <a href="https://arxiv.org/abs/2001.03275">here</a>.</p>
+<p>The same holds equivariantly for a commuting reductive group preserving $f$. The scaling action identifies the topology of the nonzero fibers, up to monodromy, while both $X$ and $X_0$ retract onto the weight-zero subspace. The nearby-cycle triangle then becomes the relative cohomology sequence. This description concerns the underlying cohomology. For more details, see <a href="https://arxiv.org/abs/2001.03275">here</a>.</p>
 <p>For $f=z^m$, this reduces the calculation to the pair $(\mathbf C,\mu_m)$:</p>
 
 \[
@@ -1393,7 +1390,7 @@ H^\bullet(X,X_1)\longrightarrow H^\bullet(X).
 
 <p>Its compatibility with multiplication is a geometric statement about the specialization maps and Hall correspondences. See <a href="https://arxiv.org/abs/2312.14008">Botta–Davison, Section 4.4</a> and <a href="https://arxiv.org/abs/2604.00124">Jindal–Neguţ, Section 3.11</a>.</p>
 <p>This map is useful because we know how to compute the algebra on the right, as it is a shuffle algebra. In some equivariant examples the map is injective, and one can then study the critical CoHA by describing its image in the shuffle algebra. Injectivity does require a separate argument. For example, for $f=z^m$, the nonzero relative cohomology in degree one maps to $H^1(\mathbf C)=0$. In this particular example, the forget-the-potential map is not injective because there is non-trivial monodromy on the critical cohomology.</p>
-<p>The loop-nilpotent tripled-quiver CoHA is an important example. Its map to the zero-potential shuffle algebra is injective (for some equivariant versions). This uses dimensional reduction and a stratification of the stack of representations with a nilpotent endomorphism in Jordan types.</p>
+<p>The loop-nilpotent tripled-quiver CoHA is an important example. Its map to the zero-potential shuffle algebra is injective (for some equivariant versions). This uses dimensional reduction and a stratification of the stack of representations with a nilpotent endomorphism in Jordan types, as we will see below.</p>
 <h2>Dimensional reduction</h2>
 <p>One important technique in computing vanishing cycles goes under the name of dimensional reduction. Suppose we start with equations $s_1(x)=\cdots=s_r(x)=0$ on a smooth space $X$. Introduce variables $z_1,\ldots,z_r$ and consider the function</p>
 
