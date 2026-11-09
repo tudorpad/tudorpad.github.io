@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="BPS cohomology for Higgs bundles: from Atiyah–Bott and intersection cohomology to CoHAs, factorization, and Hecke operators.">
+  <title>BPS cohomology for Higgs bundles · Blog</title>
+  <style>
+    :root { --bg:#f7f8fc; --ink:#191b21; --muted:#656b77; --line:#dce0e8; --link:#2d405f; --hover:#0a58a0; --panel:#eef1f6; color-scheme:light; }
+    :root[data-theme="dark"] { --bg:#15171d; --ink:#e9ebf0; --muted:#a7aeba; --line:#383e49; --link:#a6c9f4; --hover:#d6e8ff; --panel:#20242c; color-scheme:dark; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.67 -apple-system,BlinkMacSystemFont,"Avenir Next","Segoe UI",Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { color:var(--link); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:3px; }
+    a:hover { color:var(--hover); }
+    a:focus-visible, button:focus-visible { outline:2px solid var(--hover); outline-offset:3px; }
+    .site-header { width:min(100%,1120px); margin:0 auto; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    .wordmark { color:var(--ink); font-weight:850; font-size:13px; letter-spacing:.085em; text-transform:uppercase; white-space:nowrap; text-decoration:none; }
+    .header-right { display:flex; align-items:center; gap:34px; }
+    .site-nav { display:flex; align-items:center; gap:24px; }
+    .site-nav a { color:var(--muted); font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
+    .site-nav a.active, .site-nav a:hover { color:var(--ink); }
+    .theme-toggle { border:0; background:none; color:var(--ink); font:inherit; font-size:19px; line-height:1; padding:3px 4px; cursor:pointer; }
+    .article { max-width:764px; margin:70px auto 110px; padding:0 24px; }
+    .article h1 { font-size:clamp(2.45rem,5vw,3.25rem); line-height:1.08; letter-spacing:-.045em; font-weight:840; margin:0 0 10px; }
+    .article > p:first-of-type { font-style:normal; color:var(--muted); font-size:16px; margin:0 0 0; }
+    .article > p:nth-of-type(2) { margin-top:56px; }
+    .article > h1 + p + p::before { content:""; display:block; border-top:1px solid var(--line); margin:0 0 48px; }
+    .article h2 { font-size:1.55rem; line-height:1.26; font-weight:800; letter-spacing:-.025em; margin:58px 0 21px; scroll-margin-top:24px; }
+    .article p { margin:0 0 1.22em; }
+    .article strong { font-weight:750; }
+    .article em { font-style:italic; }
+    .article ul, .article ol { padding-left:1.35em; margin:0 0 1.4em; }
+    .article li { margin:0 0 .72em; padding-left:.16em; }
+    .article li::marker { color:var(--muted); }
+    .article h2:last-of-type { padding-top:30px; border-top:1px solid var(--line); }
+    .article h2:last-of-type + ul { font-size:15px; line-height:1.55; }
+    .article p:has(> mjx-container[display="true"]) { overflow-x:auto; overflow-y:hidden; padding:9px 0 12px; margin:1.5em 0 1.65em; }
+    mjx-container[display="true"] { overflow-x:auto; overflow-y:hidden; max-width:100%; padding:2px 0 5px; }
+    mjx-container:not([display="true"]) { white-space:normal; }
+    .site-footer { border-top:1px solid var(--line); max-width:716px; margin:0 auto 50px; padding:22px 0 0; color:var(--muted); font-size:13px; display:flex; justify-content:space-between; gap:20px; }
+    .site-footer a { color:var(--muted); }
+    @media (max-width:720px) { .site-header { padding:16px 20px; } .site-nav { gap:14px; } .site-nav a:not(.active) { display:none; } .header-right { gap:18px; } .article { margin:56px auto 76px; padding:0 20px; } .article h1 { font-size:2.46rem; } .article h2 { margin-top:48px; } .site-footer { margin:0 20px 35px; } }
+    @media print { :root { --bg:#fff; --ink:#000; --muted:#555; --line:#bbb; --link:#000; } body { font-size:12pt; } .site-header,.theme-toggle { display:none; } .article { max-width:none; margin:0; padding:0; } .article h1 { font-size:27pt; } .article h2 { break-after:avoid; } .article p,.article li { orphans:3; widows:3; } a { text-decoration:none; } .site-footer { display:none; } }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']], processEscapes: true, tags: 'ams' },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] },
+      startup: { typeset: true }
+    };
+    (function(){
+      try { document.documentElement.dataset.theme = localStorage.getItem('bps-blog-theme') || 'light'; } catch(e) { document.documentElement.dataset.theme = 'light'; }
+    })();
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="https://tudorpad.github.io/">Tudor Pădurariu</a>
+    <div class="header-right">
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="https://tudorpad.github.io/">Home</a>
+        <a href="https://tudorpad.github.io/research/">Research</a>
+        <a href="https://tudorpad.github.io/teaching/">Teaching</a>
+        <a class="active" href="https://tudorpad.github.io/blog/">Blog</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" onclick="const next=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=next;try{localStorage.setItem('bps-blog-theme',next)}catch(e){}">◐</button>
+    </div>
+  </header>
+  <main id="content"><article class="article">
+<h1>BPS cohomology for Higgs bundles</h1>
+<p><em>We motivate the study of BPS cohomology through one example, Higgs bundles on a curve.</em></p>
+<p>In the <a href="https://tudorpad.github.io/blog/cohomological-hall-algebras/">previous post on cohomological Hall algebras</a>, we discussed quivers. Let us now try a geometric example. We will begin with vector bundles on a curve, revisit results of Atiyah and Bott, and then ask which parts of that story survive for Higgs bundles.</p>
+<p>As in the <a href="https://tudorpad.github.io/blog/moduli-spaces-are-their-cohomologies/">post on moduli spaces and their cohomologies</a>, we can ask some rather broad questions. 
+Can we compute the dimensions of these cohomology groups? How does cohomology change when we vary the rank or degree? Can we generate it using classes from a universal family? 
+To these questions, we also add the following: is all this cohomology assembled, in some controlled way, from smaller <em>primitive</em> pieces? We’ll see that all these are related, and answering them leads us to <strong>BPS cohomology</strong>.</p>
+<p>Everything below is over $\mathbb C$, and cohomology has rational coefficients. Let $C$ be a smooth projective curve of genus $g\geq 2$. I may not be precise about the grading shifts.</p>
+<h2>Three spaces of bundles</h2>
+<p>The simplest geometric place to start is vector bundles on a curve.</p>
+<p>Fix a rank $r&gt;0$ and degree $d$. There are three spaces to keep in mind when parametrizing such bundles:</p>
+<p>$$
+\mathscr{B}un_{r,d}\ \supset\ \mathscr{B}un^{\mathrm{ss}}_{r,d}
+\ \xrightarrow{\ p\ }\ M^{\mathrm{ss}}_{r,d}.
+$$</p>
+<p>The first is the stack of all vector bundles $E$ with $(\operatorname{rk}E,\deg E)=(r,d)$. The second keeps only semistable bundles: every nonzero proper subbundle $F\subset E$ must satisfy $\deg(F)/\operatorname{rk}(F)\leq d/r$. The variety $M^{\mathrm{ss}}_{r,d}$ can be constructed as a GIT quotient and is a <a href="https://www.numdam.org/articles/10.5802/aif.2833/">good moduli space in Alper&#39;s sense</a>. Its points are $S$-equivalence classes of semistable bundles, each with a polystable representative. It can be singular when strictly semistable bundles exist.</p>
+<p>The variety is perhaps the most familiar of these spaces. The <a href="https://doi.org/10.2307/1970710">Narasimhan–Seshadri theorem</a> gives a remarkable second description of its closed points: in degree zero, polystable bundles correspond to unitary representations of $\pi_1(C)$ up to conjugacy, and stable bundles correspond to irreducible representations. For nonzero degree, the corresponding statement uses representations of a central extension. But the stack of <strong>all</strong> bundles is the more fundamental space for calculations and operations: it has the cleanest cohomology formula of the three, and its connected components for different degrees are related in a straightforward way.</p>
+<p>There is a universal bundle $\mathscr E$ on $C\times\mathscr{B}un_{r,d}$. Choose a basis $\alpha_1,\ldots,\alpha_{2g}$ of $\mathbf H^1(C)$, and let $\omega\in \mathbf H^2(C)$ be the class of a point. The Künneth components of its Chern classes are defined by</p>
+<p>$$
+c_i(\mathscr E)=1\otimes a_i+
+\sum_{j=1}^{2g}\alpha_j\otimes b_{i,j}+
+\omega\otimes f_i.
+$$</p>
+<p>These are <em>tautological classes</em>: they come from the universal object parameterized by the stack. <a href="https://doi.org/10.1098/rsta.1983.0017">Atiyah and Bott</a> showed that the tautological classes displayed below freely generate rational cohomology, subject only to graded commutativity:</p>
+<p>$$
+\mathbf H^\bullet(\mathscr{B}un_{r,d})\cong
+\mathbb Q[a_1,\ldots,a_r,f_2,\ldots,f_r]
+\otimes\Lambda(b_{i,j}:1\leq i\leq r,\ 1\leq j\leq 2g).
+$$</p>
+<p>Here $|a_i|=2i$, $|b_{i,j}|=2i-1$, and $|f_i|=2i-2$.</p>
+<h2>Remove the unstable bundles</h2>
+<p>Every bundle has a canonical Harder–Narasimhan filtration. Its successive quotients are semistable, with strictly decreasing slopes. Thus $\mathscr{B}un_{r,d}$ is stratified by lists $\tau=((r_1,d_1),\ldots,(r_k,d_k))$ with $d_1/r_1&gt;\cdots&gt;d_k/r_k$. The stratum indexed by $\tau$ is a bundle over a product of stacks $\mathscr{B}un^{\mathrm{ss}}_{r_i,d_i}$. Its complex codimension is</p>
+<p>$$
+c(\tau)=\sum_{i&lt;j}
+\bigl(r_ir_j(g-1)+r_jd_i-r_id_j\bigr).
+$$</p>
+<p>Atiyah and Bott proved that this stratification has zero boundary maps in cohomology. Thus the cohomology of the full stack splits additively into contributions from the Harder–Narasimhan strata, and</p>
+<p>$$
+P_t(\mathscr{B}un_{r,d})=
+P_t(\mathscr{B}un^{\mathrm{ss}}_{r,d})+
+\sum_{\tau\text{ unstable}}t^{2c(\tau)}
+\prod_i P_t(\mathscr{B}un^{\mathrm{ss}}_{r_i,d_i}).
+$$</p>
+<p>The ranks on the right are smaller than $r$, so this is a recursion for the Poincaré series of the semistable stack. Earlier calculations of these Betti numbers go back to <a href="https://doi.org/10.1007/BF01357141">Harder–Narasimhan</a>.</p>
+<p>If $\gcd(r,d)=1$, semistable is the same as stable. The map to $M^{\mathrm{ss}}_{r,d}$ is then a neutral $\mathbb G_m$-gerbe, and</p>
+<p>$$
+\mathbf H^\bullet(\mathscr{B}un^{\mathrm{ss}}_{r,d})
+\cong \mathbf H^\bullet(M^{\mathrm{ss}}_{r,d})\otimes\mathbb Q[u].
+$$</p>
+<p>So the recursion also computes the Betti numbers of the smooth variety $M^{\mathrm{ss}}_{r,d}$. But note that we reached them by first studying the larger stack.</p>
+<p>What if $r$ and $d$ are not coprime? The variety is generally singular, and the fibers of the good-moduli map are more complicated than before. The difference between the cohomology of the stack and any reasonable cohomology of the good moduli space is not tensoring by $\mathbb Q[u]$ anymore.</p>
+<h2>Intersection cohomology</h2>
+<p>The recursion computes the cohomology of the <strong>stack</strong> $\mathscr{B}un^{\mathrm{ss}}_{r,d}$. When $r$ and $d$ are not coprime, I do not know a comparable formula for the ordinary cohomology of the singular <strong>variety</strong> $M^{\mathrm{ss}}_{r,d}$. So let us discuss intersection cohomology instead. On a smooth variety, it agrees with ordinary cohomology (after a shift). On a singular projective variety, it satisfies Poincaré duality and hard Lefschetz, properties that ordinary cohomology can lose. </p>
+<p>Fix a slope $\mu$, and let $(r,d)$ range over positive ranks with $d/r=\mu$. Set $n_r=(g-1)r^2$, the dimension of $\mathscr{B}un^{\mathrm{ss}}_{r,d}$. <a href="https://arxiv.org/abs/1512.03343">Meinhardt</a> and <a href="https://arxiv.org/abs/1512.04076">Mozgovoy–Reineke</a> give the following isomorphism of rank-and-degree-graded vector spaces:</p>
+<p>$$
+\bigoplus_{d/r=\mu}\mathbf H^\bullet(\mathscr{B}un^{\mathrm{ss}}_{r,d})[n_r]
+\ \cong\ 
+\operatorname{Sym}_{\oplus}\!\left(
+\bigoplus_{d/r=\mu}\mathbf{IH}^\bullet(M^{\mathrm{ss}}_{r,d})
+\otimes \mathbf H^\bullet(B\mathbb G_m)\right).
+\tag{1}
+$$</p>
+<p>Here $\mathbf{IH}^\bullet$ is the intersection complex, and we ignore the precise shifts. 
+The symbol $\operatorname{Sym}_{\oplus}$ denotes the symmetric algebra, which has a sign for odd classes.</p>
+<p>In words, intersection cohomology supplies the basic pieces. The symmetric algebra assembles them into the cohomology of every semistable-bundle stack of slope $\mu$. At rank one, (1) recovers $\mathbf H^\bullet(\operatorname{Pic}^d(C))\otimes \mathbf H^\bullet(B\mathbb G_m)$, as it should. In rank two, there is always a rank-two piece. If $d$ is even, there can also be a piece assembled from two rank-one terms, both of degree $d/2$. This corresponds to the two possibilities for a polystable rank-two bundle: stable, or a direct sum of stable line bundles of the same slope.</p>
+<p>The later <a href="https://arxiv.org/abs/2502.04253">paper</a> extends the picture to semistable $G$-bundles for other reductive groups.</p>
+<p>Why is such a decomposition surprising? The familiar <a href="https://smf.emath.fr/publications/faisceaux-pervers">Beilinson–Bernstein–Deligne–Gabber decomposition theorem</a> applies to proper maps, while the map from the semistable-bundle stack to its good moduli space is not proper. However, one can approximate the good-moduli space map via proper maps, using framed moduli spaces. Choose a sufficiently negative line bundle $L$ and add a map $s:L\to E$. Stable framed pairs form a smooth space, and forgetting $s$ gives a <strong>projective</strong> map to $M^{\mathrm{ss}}_{r,d}$. Now the decomposition theorem applies to that map. This is reminiscent of Totaro&#39;s approximations of stack cohomology.</p>
+<p>The harder part is identifying its summands. Over a stable bundle $E$ the fiber is $\mathbb P\operatorname{Hom}(L,E)$, while a <em>virtual smallness</em> estimate controls the fibers over more complicated strata and singles out the intersection complex. <a href="https://arxiv.org/abs/1411.4062">Meinhardt–Reineke</a> developed this strategy for quiver moduli, and <a href="https://arxiv.org/abs/1512.04076">Mozgovoy–Reineke</a> adapted it to bundles. See also <a href="https://arxiv.org/abs/2407.06160">Kinjo’s paper</a>, which proves a decomposition theorem for good-moduli morphisms under general hypotheses.</p>
+<p>The Atiyah–Bott argument also makes the restriction $\mathbf H^\bullet(\mathscr{B}un_{r,d})\to \mathbf H^\bullet(\mathscr{B}un^{\mathrm{ss}}_{r,d})$ surjective. Thus every class on the semistable stack is represented by a polynomial in the tautological classes. Since intersection cohomology is a summand in (1), projecting these tautological polynomials spans it. This type of statement is what we call tautological generation in this case.</p>
+<p>So far we have discussed cohomology as a <em>graded space</em>. Extensions of sheaves can be incorporated in a Hall product. Could the cohomological Hall algebra of bundles have an explicit description, perhaps a shuffle formula like quiver CoHAs? Even defining its Borel–Moore product needs care, because the stack of all bundles may not be quasi-compact. <a href="https://arxiv.org/abs/1801.03482">Sala–Schiffmann</a> construct the CoHA of <strong>all coherent sheaves on $C$</strong> using finite-type approximations. Its rank-zero part, the torsion-sheaf CoHA, was recently described by a shuffle algebra by <a href="https://arxiv.org/abs/2609.08323">Jindal–Lim</a>.</p>
+<h2>Higgs bundles</h2>
+<p>A Higgs bundle is a pair $(E,\varphi)$, where $\varphi:E\to E\otimes K_C$. Semistability now tests only subbundles preserved by $\varphi$. Write $\mathscr H_{r,d}$ for the stack of all such pairs, $\mathscr H^{\mathrm{ss}}_{r,d}$ for its semistable open substack, and</p>
+<p>$$
+p_{r,d}:\mathscr H^{\mathrm{ss}}_{r,d}\longrightarrow M^{\mathrm{Dol}}_{r,d}
+$$</p>
+<p>for the good-moduli map. The variety on the right is the Dolbeault moduli space.</p>
+<p>Higgs bundles were first studied by <a href="https://doi.org/10.1215/S0012-7094-87-05408-1">Hitchin</a> in relation to integrable systems. The Hitchin map</p>
+<p>$$
+h_{r,d}:M^{\mathrm{Dol}}_{r,d}\longrightarrow
+\mathscr A_r=\bigoplus_{i=1}^{r}\mathbf H^0(C,K_C^{\otimes i}),
+$$</p>
+<p>remembers the coefficients of the characteristic polynomial of $\varphi$. On the smooth locus, fibers are torsors for the Jacobians of smooth spectral curves. There is a second, rather different, reason to study Higgs bundles: <a href="https://pmihes.centre-mersenne.org/articles/10.1007/BF02699491/">nonabelian Hodge theory</a> relates their moduli to moduli of local systems, with the appropriate twist when the degree is nonzero. The geometry of Hitchin fibrations also plays a central role in geometric Langlands. These connections make their cohomology worth understanding.</p>
+<p>Rank one is a useful check. Every rank-one Higgs bundle is semistable, and $M^{\mathrm{Dol}}_{1,d}\cong\operatorname{Pic}^d(C)\times \mathbf H^0(C,K_C)$. The stack has, in addition, scalar automorphisms.</p>
+<p>The formula $(E,\varphi)\mapsto(E,t\varphi)$ extends to $t=0$ on the <strong>unrestricted</strong> stack $\mathscr H_{r,d}$ and gives an $\mathbb A^1$ homotopy back to $\mathscr{B}un_{r,d}$. Hence their ordinary singular cohomologies agree and are tautologically generated. This does <strong>not</strong> say that the $\mathbb G_m$ fixed locus is just $\mathscr{B}un_{r,d}$; this is false in general. Nor does the shortcut calculate the cohomology of $\mathscr H^{\mathrm{ss}}_{r,d}$: a semistable Higgs pair can have an unstable underlying bundle, and setting its Higgs field to zero may leave the semistable locus.</p>
+<p>Ordinary cohomology is not the most convenient linearization for a Hall product. Hall correspondences need pushforwards, and ordinary cohomology has no general pushforward along their proper maps. <strong>Borel–Moore homology</strong> has such pushforwards. It is also more sensitive to the Higgs-field directions, in the sense that the contraction to bundles gives no isomorphism in Borel–Moore homology.</p>
+<p>There is a <a href="https://doi.org/10.1093/qmath/haad019">Harder–Narasimhan stratification for Higgs pairs</a>, but it uses $\varphi$-invariant subbundles and differs from the stratification of the underlying bundles. It is not clear (to me) how to obtain vanishing of the boundary maps in Borel–Moore homology.</p>
+<h2>Three questions</h2>
+<p>We can now ask what survives of the bundle picture.</p>
+<ol>
+<li><strong>Tautological classes.</strong> The ordinary cohomology of the full Higgs stack comes from bundles. Can a suitable cap product send these classes into Borel–Moore homology, and what is its image? The first virtual fundamental class one might use vanishes for a simple reason in deformation theory. Happily, the same reason tells us how to correct it.</li>
+<li><strong>Decomposition.</strong> Is there an analogue of (1) for the Borel–Moore homology of semistable Higgs bundles? If so, what replaces intersection cohomology as the basic piece when rank and degree are not coprime?</li>
+<li><strong>Multiplication.</strong> What does the Higgs CoHA look like as an algebra?</li>
+</ol>
+<p>The answers to the first two questions turn out to involve the same classes. The third question explains why.</p>
+<h2>BPS cohomology</h2>
+<p>The basic piece in the second question is a sheaf $\mathscr{BPS}_{r,d}$ on $M^{\mathrm{Dol}}_{r,d}$, called the <strong>BPS sheaf</strong>. Its cohomology</p>
+<p>$$
+\operatorname{BPS}_{r,d}:=
+\mathbf H^\bullet(M^{\mathrm{Dol}}_{r,d},\mathscr{BPS}_{r,d})
+$$</p>
+<p>is BPS cohomology. Its construction comes from cohomological Donaldson–Thomas theory on the local Calabi–Yau threefold $T^*C\times\mathbb A^1$, followed by dimensional reduction.</p>
+<p>The Higgs version of (1) says that, at a fixed slope, these BPS spaces assemble the Borel–Moore homology of all semistable Higgs stacks. Here is the formula with its grading. Let $\mathbb L=\mathbf H_c^\bullet(\mathbb A^1)$, concentrated in degree two, and let $\mathbf H^{\mathrm{BM}}(\mathscr H^{\mathrm{ss}}_{r,d})$ denote the cohomologically graded Borel–Moore Hodge space. Put $\widehat{\mathbf H}^{\mathrm{BM}}_{r,d}=\mathbf H^{\mathrm{BM}}(\mathscr H^{\mathrm{ss}}_{r,d})\otimes\mathbb L^{n_r}$. In the convention of <a href="https://arxiv.org/html/2112.10053">Kinjo–Koseki</a>, their theorem reads</p>
+<p>$$
+\bigoplus_{d/r=\mu}\widehat{\mathbf H}^{\mathrm{BM}}_{r,d}
+\ \cong\ 
+\operatorname{Sym}_{\oplus}\!\left(
+\bigoplus_{d/r=\mu}
+\operatorname{BPS}_{r,d}\otimes\mathbb Q[u]\right),
+\qquad |u|=2.
+\tag{2}
+$$</p>
+<p>If $\gcd(r,d)=1$, the Higgs moduli space is smooth and $\mathscr{BPS}_{r,d}$ is its intersection complex. Thus BPS cohomology is, up to the standard shift and twist, $\mathbf H^\bullet(M^{\mathrm{Dol}}_{r,d})$. This is exactly what rank one suggested.</p>
+<p>For noncoprime $(r,d)$, BPS cohomology can be larger than intersection cohomology. There is a split inclusion $\mathbf{IH}^\bullet(M^{\mathrm{Dol}}_{r,d})\hookrightarrow\operatorname{BPS}_{r,d}$, but it can be strict. So (2) gives us new basic pieces, and not just the old intersection-cohomology pieces under another name.</p>
+<h2>A coproduct from factorization</h2>
+<p>The Hall product combines two objects by considering their extensions. What could split an object in the opposite direction?</p>
+<p>The answer in <a href="https://arxiv.org/html/2607.01355">Davison–Hennecart–Kinjo–Schiffmann–Vasserot</a> is <em>factorization</em>. Write $S=T^*C$ and temporarily pass from sheaves on $S$ to compactly supported sheaves on $S\times\mathbb A^1$. Call the extra coordinate $z$. Multiplication by $z$ is an endomorphism of such a sheaf, and its eigenvalues record where the sheaf lies in the extra $\mathbb A^1$. If the eigenvalues lie in two disjoint regions, the sheaf splits uniquely into its two generalized-eigensheaf pieces.</p>
+<p>Here is a toy version. Start with finite-length sheaves on $\mathbb A^2$. After adding $z$, we are looking at finite-length sheaves on $\mathbb A^3$. Take disjoint <strong>analytic</strong> open sets $U,V\subset\mathbb C_z$, say small discs around $0$ and $1$. On the locus where the $z$-spectrum lies in $U\cup V$, generalized eigenspaces give a product: a sheaf whose eigenvalues lie in $U$ and a sheaf whose eigenvalues lie in $V$. For instance, $\mathbb C[x,y,z]/(x,y,z^2(z-1))$ splits into a length-two piece at $z=0$ and a length-one piece at $z=1$, even though both sit over the same point $(x,y)=(0,0)$ of $\mathbb A^2$. Restricting from one region to two is the geometric source of the coproduct.</p>
+<p>The Donaldson–Thomas vanishing-cycle sheaf and <a href="https://arxiv.org/abs/2102.01568">dimensional reduction</a> carry this operation back to Borel–Moore homology on $S$. Splitting into three disjoint regions makes the coproduct coassociative. Exchanging two regions makes it cocommutative. It is also compatible with Hall multiplication.</p>
+<p>There is a distinction worth making here. The <strong>unrestricted</strong> coproduct lives on the CoHA of all Higgs <em>sheaves</em>, which may have zero-dimensional torsion. There is also a coproduct on the semistable Higgs CoHA at each fixed slope. In positive rank, the pure one-dimensional sheaves on $T^*C$ are the Higgs <em>bundles</em> we started with.</p>
+<p>A class $x$ is <em>primitive</em> when $\Delta(x)=x\otimes1+1\otimes x$. Write $\mathbf H^{\mathrm{ss}}_C(\mu)=\bigoplus_{d/r=\mu}\mathbf H^{\mathrm{BM}}_{-*+2n_r}(\mathscr H^{\mathrm{ss}}_{r,d})$ for the fixed-slope CoHA, with its virtual-dimension grading, and $\mathfrak g_C^{\mathrm{ss}}(\mu)$ for its primitive part. Its rank-and-degree $(r,d)$ summand is $\mathfrak g_C^{\mathrm{ss}}(r,d)$. The primitives form a Lie algebra under the Hall commutator, and the theorem gives</p>
+<p>$$
+\mathbf H^{\mathrm{ss}}_C(\mu)\cong U(\mathfrak g_C^{\mathrm{ss}}(\mu)),
+\qquad
+\mathfrak g_C^{\mathrm{ss}}(r,d)
+\cong\operatorname{BPS}_{r,d}\otimes\mathbb Q[u].
+\tag{3}
+$$</p>
+<p>Milnor–Moore explains the enveloping algebra in (3). Poincaré–Birkhoff–Witt then identifies its <strong>underlying graded vector space</strong> with the symmetric algebra on its primitives, recovering the graded-vector-space content of (2). The Hall product itself need not be commutative, and (3) does not amount to a closed presentation of its Lie bracket. For the full sheaf CoHA, one needs to include a completion.</p>
+<p>This gives one answer to “what is BPS cohomology?” The primitive piece is BPS cohomology together with the familiar $\mathbf H^\bullet(B\mathbb G_m)=\mathbb Q[u]$ factor. Separating that factor leaves the BPS space itself.</p>
+<h2>More on primitive classes</h2>
+<p>There is another way to find these classes, closer to Atiyah–Bott&#39;s starting point. On a smooth variety, we can cap a cohomology class with the fundamental class to get Borel–Moore homology. The derived Higgs moduli problem has a virtual class, but the <strong>ordinary virtual class vanishes</strong>. Why? Serre duality on the Calabi–Yau surface gives $\operatorname{Ext}^2(F,F)\cong\operatorname{Hom}(F,F)^\vee$, and the scalar identity in $\operatorname{Hom}(F,F)$ produces a trivial one-dimensional obstruction direction. </p>
+<p>Removing that trivial direction gives a <strong>reduced virtual fundamental class</strong> for Higgs sheaves. On the pure, positive-rank Higgs-bundle locus, it gives the map</p>
+<p>$$
+\mathbf H^\bullet(\mathscr H_{r,d})\longrightarrow
+\mathbf H_*^{\mathrm{BM}}(\mathscr H_{r,d}),
+\qquad a\longmapsto a\cap[\mathscr H_{r,d}]^{\mathrm{red}}.
+\tag{4}
+$$</p>
+<p>The cohomology on the left is tautologically generated, as scaling the Higgs field takes us back to $\mathscr{B}un_{r,d}$. For $g&gt;1$ and $r&gt;0$, Davison–Hennecart–Kinjo–Schiffmann–Vasserot show that the <strong>tautological image</strong> of (4) is the primitive part of the unrestricted Higgs-sheaf CoHA on the pure Higgs-bundle locus. Restriction to the semistable locus identifies it with the fixed-slope semistable primitives. By (3), the image is $\operatorname{BPS}_{r,d}\otimes\mathbb Q[u]$.</p>
+<p>Thus questions that looked different bring us to BPS cohomology. Which Borel–Moore classes come from ordinary tautological cohomology after cap product? Which classes build the semistable CoHA under Hall multiplication? Alternatively, which classes (up to tensoring with $\mathbf H^\bullet(B\mathbb G_m)$) are primitive for the factorization coproduct? All have as answer BPS cohomology.</p>
+<p>When $r$ and $d$ are coprime, the smooth stable Higgs moduli already have tautologically generated ordinary cohomology. <a href="https://arxiv.org/abs/math/0003093">Hausel–Thaddeus</a> proved this in rank two. <a href="https://arxiv.org/abs/math/0009109">Markman</a> used a beautiful decomposition-of-the-diagonal argument in general rank. The primitive statement extends that picture beyond coprime rank and degree, where the full semistable stack contains many more classes.</p>
+<h2>A bonus</h2>
+<p>Here is a final surprise. Fix $r$. BPS cohomology is independent of $d$. In fact, <a href="https://arxiv.org/html/2112.10053">Kinjo–Koseki</a> proved a stronger statement on the common Hitchin base $\mathscr A_r$:</p>
+<p>$$
+(h_{r,d})_*\mathscr{BPS}_{r,d}
+\cong(h_{r,d+1})_*\mathscr{BPS}_{r,d+1}
+\tag{5}
+$$</p>
+<p>Thus BPS cohomology agrees across <strong>all</strong> degrees, including some extra data, such as the perverse filtration coming from the Hitchin map. Since $\chi(E)=d+r(1-g)$, this is also called $\chi$-independence.</p>
+<p>I find this striking because the analogous claim fails for ordinary bundles: changing the degree can change the Betti numbers of their semistable moduli spaces, even among coprime degrees. For the BPS invariant, Higgs bundles give a much more uniform answer. <a href="https://arxiv.org/html/2012.06627v3">Maulik–Shen</a> proved a related result for <strong>intersection cohomology</strong> of $\mathscr O_C(D)$-twisted Higgs moduli when $D$ is effective and $\deg D&gt;2g-2$. Here the twist is the canonical bundle, the invariant is <strong>BPS cohomology</strong>, and the agreement holds across every degree.</p>
+<p>Even for coprime degrees, this is beautiful: BPS cohomology is then the ordinary cohomology of a smooth Higgs moduli space. Nonabelian Hodge theory relates that space to a twisted character variety. For degrees coprime to $r$, the twists are Galois conjugate, helping to explain equality of Betti numbers. </p>
+<p>How might one relate neighboring degrees? A Hecke modification changes the degree by one. It is an exact sequence $0\to(E,\varphi)\to(E',\varphi')\to Q\to0$ with $Q$ a length-one Higgs sheaf supported at a point of $T^*C$. The catch is that modifying a semistable Higgs bundle may make it unstable. The <a href="https://arxiv.org/html/2607.01355">factorization-and-Hecke approach</a> starts on the full Higgs-sheaf stack instead. It identifies the BPS contribution with primitives, shows that a suitable <strong>cohomological</strong> length-one Hecke operator preserves those primitives, and proves that this operator is invertible between adjacent degrees. The argument also recovers (5) for the BPS sheaves pushed to the Hitchin base.</p>
+<p>Higgs bundles are only one example, but a central one: moduli of bundles, Hitchin fibrations, Hall algebras and Donaldson–Thomas theory all meet here. Note that some of these results, such as the decomposition theorem, hold for more general <a href="https://arxiv.org/abs/2502.04253">symmetric stacks</a> satisfying suitable hypotheses, including the existence of a good moduli space.</p>
+<h2>References</h2>
+<ul>
+<li>J. Alper, <a href="https://www.numdam.org/articles/10.5802/aif.2833/"><em>Good moduli spaces for Artin stacks</em></a>, <em>Ann. Inst. Fourier</em> <strong>63</strong> (2013), 2349–2402.</li>
+<li>M. F. Atiyah and R. Bott, <a href="https://doi.org/10.1098/rsta.1983.0017"><em>The Yang–Mills equations over Riemann surfaces</em></a>, <em>Phil. Trans. Roy. Soc. Lond. A</em> <strong>308</strong> (1983), 523–615.</li>
+<li>A. Beilinson, J. Bernstein, P. Deligne and O. Gabber, <a href="https://smf.emath.fr/publications/faisceaux-pervers"><em>Faisceaux pervers</em></a>, <em>Astérisque</em> <strong>100</strong>, second edition (2018).</li>
+<li>C. Bu, B. Davison, A. Ibáñez Núñez, T. Kinjo and T. Pădurariu, <a href="https://arxiv.org/abs/2502.04253"><em>Cohomology of symmetric stacks</em></a>, arXiv:2502.04253.</li>
+<li>B. Davison, L. Hennecart, T. Kinjo, O. Schiffmann and E. Vasserot, <a href="https://arxiv.org/abs/2607.01355"><em>Hecke operators on symplectic surfaces and $\chi$-independence</em></a>, arXiv:2607.01355 (2026).</li>
+<li>E. Hamilton, <a href="https://doi.org/10.1093/qmath/haad019"><em>Three instability stratifications of the stack of Higgs bundles on a smooth projective curve</em></a>, <em>Q. J. Math.</em> <strong>74</strong> (2023), 1361–1402.</li>
+<li>G. Harder and M. S. Narasimhan, <a href="https://doi.org/10.1007/BF01357141"><em>On the cohomology groups of moduli spaces of vector bundles on curves</em></a>, <em>Math. Ann.</em> <strong>212</strong> (1975), 215–248.</li>
+<li>T. Hausel and M. Thaddeus, <a href="https://arxiv.org/abs/math/0003093"><em>Generators for the cohomology ring of the moduli space of rank 2 Higgs bundles</em></a>, <em>Proc. London Math. Soc.</em> <strong>88</strong> (2004), 632–658.</li>
+<li>N. Hitchin, <a href="https://doi.org/10.1215/S0012-7094-87-05408-1"><em>Stable bundles and integrable systems</em></a>, <em>Duke Math. J.</em> <strong>54</strong> (1987), 91–114.</li>
+<li>S. Jindal and W. Lim, <a href="https://arxiv.org/abs/2609.08323"><em>Cohomological Hall algebras and Quot schemes of curves</em></a>, arXiv:2609.08323 (2026).</li>
+<li>T. Kinjo, <a href="https://arxiv.org/abs/2407.06160"><em>Decomposition theorem for good moduli morphisms</em></a>, arXiv:2407.06160.</li>
+<li>T. Kinjo, <a href="https://doi.org/10.1112/S0010437X21007740"><em>Dimensional reduction in cohomological Donaldson–Thomas theory</em></a>, <em>Compos. Math.</em> <strong>158</strong> (2022), 123–167.</li>
+<li>T. Kinjo and N. Koseki, <a href="https://ems.press/journals/jems/articles/14297971"><em>Cohomological $\chi$-independence for Higgs bundles and Gopakumar–Vafa invariants</em></a>, <em>J. Eur. Math. Soc.</em> <strong>28</strong> (2026), 619–671; <a href="https://arxiv.org/abs/2112.10053">arXiv version</a>.</li>
+<li>E. Markman, <a href="https://arxiv.org/abs/math/0009109"><em>Generators of the cohomology ring of moduli spaces of sheaves on symplectic surfaces</em></a>, <em>J. Reine Angew. Math.</em> <strong>544</strong> (2002), 61–82.</li>
+<li>D. Maulik and J. Shen, <a href="https://doi.org/10.2140/gt.2023.27.1539"><em>Cohomological $\chi$-independence for moduli of one-dimensional sheaves and moduli of Higgs bundles</em></a>, <em>Geom. Topol.</em> <strong>27</strong> (2023), 1539–1586.</li>
+<li>S. Meinhardt, <a href="https://arxiv.org/abs/1512.03343"><em>Donaldson–Thomas invariants vs. intersection cohomology for categories of homological dimension one</em></a>, arXiv:1512.03343.</li>
+<li>S. Meinhardt and M. Reineke, <a href="https://arxiv.org/abs/1411.4062"><em>Donaldson–Thomas invariants versus intersection cohomology of quiver moduli</em></a>, arXiv:1411.4062.</li>
+<li>S. Mozgovoy and M. Reineke, <a href="https://arxiv.org/abs/1512.04076"><em>Intersection cohomology of moduli spaces of vector bundles over curves</em></a>, arXiv:1512.04076.</li>
+<li>M. S. Narasimhan and C. S. Seshadri, <a href="https://doi.org/10.2307/1970710"><em>Stable and unitary vector bundles on a compact Riemann surface</em></a>, <em>Ann. of Math.</em> <strong>82</strong> (1965), 540–567.</li>
+<li>F. Sala and O. Schiffmann, <a href="https://arxiv.org/abs/1801.03482"><em>Cohomological Hall algebra of Higgs sheaves on a curve</em></a>, <em>Algebraic Geometry</em> <strong>7</strong> (2020).</li>
+<li>C. Simpson, <a href="https://pmihes.centre-mersenne.org/articles/10.1007/BF02699491/"><em>Higgs bundles and local systems</em></a>, <em>Publ. Math. IHÉS</em> <strong>75</strong> (1992), 5–95.</li>
+</ul>
+
+  </article></main>
+  <footer class="site-footer"><time datetime="2026-11-09">November 9, 2026</time><a href="https://tudorpad.github.io/blog/">← Back to the blog</a></footer>
+</body>
+</html>
