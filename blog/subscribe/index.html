@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Follow Tudor Pădurariu’s blog with RSS.">
+    <meta name="color-scheme" content="light dark">
+    <title>Follow the blog · Tudor Pădurariu</title>
+    <link rel="stylesheet" href="/assets/site.css">
+    <link rel="alternate" type="application/rss+xml" title="Tudor Pădurariu’s blog" href="/feed.xml">
+    <script src="/assets/site.js" defer></script>
+    <style>
+      .subscribe-guide { max-width: 44rem; line-height: 1.65; }
+      .subscribe-guide p { margin: 0 0 1.25rem; }
+      .subscribe-guide ol { margin: 0 0 1.5rem; padding-left: 1.5rem; }
+      .subscribe-guide li { margin-bottom: 0.5rem; }
+      .feed-address { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin: 1rem 0; }
+      .feed-address code { display: block; overflow-wrap: anywhere; padding: 0.75rem 1rem; border: 1px solid #dce0e8; border-radius: 0.5rem; }
+      .copy-feed { font: inherit; padding: 0.65rem 0.9rem; border: 1px solid currentColor; border-radius: 0.5rem; background: transparent; color: inherit; cursor: pointer; }
+      .copy-feed:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+      .copy-status { min-height: 1.5em; }
+      @media (prefers-color-scheme: dark) { .feed-address code { border-color: #59616d; } }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="wordmark" href="/">Tudor Pădurariu</a>
+        <nav aria-label="Primary navigation">
+          <a href="/">Home</a>
+          <a href="/research/">Research</a>
+          <a href="/teaching/">Teaching</a>
+          <a href="/advising/">Advising</a>
+          <a href="/events/">Events</a>
+          <a href="/cv/">CV</a>
+          <a class="is-current" href="/blog/" aria-current="page">Blog</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+          <span aria-hidden="true">◐</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="content" class="page-main blog-main">
+      <header class="page-header"><h1>Follow the blog</h1></header>
+      <section class="subscribe-guide" aria-label="RSS subscription instructions">
+        <p>RSS lets you follow new posts in an RSS reader. Clicking the feed in a regular browser may show XML; that is normal.</p>
+        <ol>
+          <li>Open an RSS reader (an app, website, or browser extension).</li>
+          <li>Choose its <strong>Add feed</strong> or <strong>Subscribe</strong> option.</li>
+          <li>Paste this address:</li>
+        </ol>
+        <div class="feed-address">
+          <code id="feed-url">https://tudorpad.github.io/feed.xml</code>
+          <button class="copy-feed" id="copy-feed" type="button">Copy address</button>
+        </div>
+        <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+        <p><a href="/feed.xml">View the RSS feed</a> · <a href="/blog/">Back to the blog</a></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <p>© <span data-current-year>2026</span> Tudor Pădurariu</p>
+      </div>
+    </footer>
+    <script>
+      document.getElementById('copy-feed').addEventListener('click', async () => {
+        const address = document.getElementById('feed-url').textContent.trim();
+        const status = document.getElementById('copy-status');
+        try {
+          await navigator.clipboard.writeText(address);
+          status.textContent = 'Copied. Paste this address into your RSS reader.';
+        } catch (_) {
+          status.textContent = 'Select and copy the address above.';
+        }
+      });
+    </script>
+  </body>
+</html>
