@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Blog · Tudor Pădurariu</title>
+    <link>https://tudorpad.github.io/blog/</link>
+    <description>Notes by Tudor Pădurariu.</description>
+    <language>en</language>
+    <atom:link href="https://tudorpad.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>BPS cohomology for Higgs bundles</title>
+      <link>https://tudorpad.github.io/blog/bps-cohomology-for-higgs-bundles/</link>
+      <description>An introduction to BPS cohomology through Higgs bundles on a curve.</description>
+      <guid isPermaLink="true">https://tudorpad.github.io/blog/bps-cohomology-for-higgs-bundles/</guid>
+      <pubDate>Mon, 09 Nov 2026 00:00:00 +0100</pubDate>
+    </item>
+    <item>
+      <title>Cohomological Hall algebras of quivers with potential (CoHAs 1)</title>
+      <link>https://tudorpad.github.io/blog/cohomological-hall-algebras/</link>
+      <description>A first post about cohomological Hall algebras.</description>
+      <guid isPermaLink="true">https://tudorpad.github.io/blog/cohomological-hall-algebras/</guid>
+      <pubDate>Fri, 18 Sep 2026 00:00:00 +0200</pubDate>
+    </item>
+    <item>
+      <title>Moduli spaces and their cohomologies</title>
+      <link>https://tudorpad.github.io/blog/moduli-spaces-are-their-cohomologies/</link>
+      <description>An informal discussion of some directions I am interested in related to moduli spaces.</description>
+      <guid isPermaLink="true">https://tudorpad.github.io/blog/moduli-spaces-are-their-cohomologies/</guid>
+      <pubDate>Sun, 13 Sep 2026 00:00:00 +0200</pubDate>
+    </item>
+    <item>
+      <title>Talks</title>
+      <link>https://tudorpad.github.io/blog/talks-by-city/</link>
+      <description>A list of the places where I have given talks.</description>
+      <guid isPermaLink="true">https://tudorpad.github.io/blog/talks-by-city/</guid>
+      <pubDate>Sat, 12 Sep 2026 00:00:00 +0200</pubDate>
+    </item>
+  </channel>
+</rss>
